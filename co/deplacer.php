@@ -52,11 +52,13 @@ if ($_SESSION['login']) {
                          .dirname($_SERVER['PHP_SELF'])
                          ."/index.php?numDossier=".$dossier->numDossier);
     } elseif ($_POST['objet'] == 'lien') {
-        /*$url = new Url($_GET['numUrl']);
-        $url->supprimer();
+        $lien       = new Url($_POST['numUrl']);
+        $dossier    = new Dossier($_POST['numDossier']);
+        
+        $lien->deplacerVers($dossier);
         header("Location: http://".$_SERVER['HTTP_HOST']
                          .dirname($_SERVER['PHP_SELF'])
-                         ."/index.php?numDossier=".$url->numDossierParent);*/
+                         ."/index.php?numDossier=".$dossier->numDossier);
     } elseif ($_POST['objet'] == 'dossier') {
         /*$dossier = new Dossier();
         $dossier->nom           = $_POST['nom'];

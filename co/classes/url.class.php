@@ -138,5 +138,15 @@ class Url extends Document{
         $resultat = mysql_query($sql);
         deconnexion();
     }
+    
+    function deplacerVers($dossier)
+    {
+        $sql =  "UPDATE url ".
+                "SET numDossierParent  = ".$dossier->numDossier." ".
+                "WHERE numUrl = ".$this->numUrl;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+    }
 }
 ?>

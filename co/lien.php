@@ -42,6 +42,26 @@ if (isset($_GET['numUrl'])) {
     echo '<strong>Url</strong> : <a href="'.$lien->url.'">'.$lien->url.'</a><br />';
     echo '</div>';
     
+    // Déplacement du lien
+    if (isset($_SESSION['login']))
+    {
+        echo '<div class="dossier">';
+        $liste = Dossier::listeTousDossier();
+        echo '<form name="form1" id="form1" method="post" action="deplacer.php">';
+        echo 'Deplacer le livre vers le dossier : ';
+        echo '<select name="numDossier">';
+        
+        foreach ($liste as $cle => $ligne) {
+            echo '<option value="'.$cle.'">'.$ligne.'</option>';    
+        }
+        echo '</select>';
+        echo '<input type="hidden" name="numUrl" value="'.$lien->numUrl.'" />';
+        echo '<input type="hidden" name="objet" value="lien" />';
+        echo '<input type="submit" name="go" value="D&eacute;placer" />';
+        echo '</form>';  
+        echo '</div>';
+    }
+    
     echo '<a href="index.php?numDossier='.$lien->numDossierParent.'">Retour au dossier</a>';
     
     // On affiche les liens pour la validation, si l'url n'a pas
