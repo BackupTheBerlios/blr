@@ -19,28 +19,22 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-session_start();
+class Message {
 
-// Inclusion des fichiers nécessaires
-include_once('classes/dossier.class.php');
-include_once('classes/url.class.php');
-include_once('classes/commentaire.class.php');
-include_once('classes/io.class.php');
-include_once('classes/divers.php');
-
-if (isset($_SESSION['login']) && $_GET['action'] == 'export')
-{
-    header('Content-Type: text/xml');
-    header('Content-Disposition: attachment; filename=export.xml');
-    header('Pragma: no-cache');
-    header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-    header('Expires: 0');
-    if (isset($_GET['numDossier'])) {
-        echo export($_GET['numDossier']);
-    } else {
-        echo export(3);
+    var $identifiant;
+    var $messages;
+    
+    function Message ()
+    {
+        $this->messages = array(
+            'ajout_livre_ok'    =>  'Le livre à été ajouté avec succès.',
+            'ajout_lien_ok'     =>  'Le lien à été ajouté avec succès.'
+        );
     }
-} else {
-    header("Location: index.php");    
+    
+    function recuperer($identifiant)
+    {
+        return $this->messages[$identifiant];    
+    }
 }
 ?>

@@ -74,7 +74,8 @@ if ($_GET['objet'] == 'commentaire') {
     
     header("Location: http://".$_SERVER['HTTP_HOST']
                      .dirname($_SERVER['PHP_SELF'])
-                     ."/index.php?numDossier=".$_POST['numDossier']);
+                     ."/index.php?numDossier=".$_POST['numDossier']
+                     ."&message=ajout_livre_ok");
 } elseif ($_GET['objet'] == 'lien') {
     $url = new Url();
     $url->langue            = $_POST['langue'];
@@ -86,7 +87,8 @@ if ($_GET['objet'] == 'commentaire') {
     
     header("Location: http://".$_SERVER['HTTP_HOST']
                      .dirname($_SERVER['PHP_SELF'])
-                     ."/index.php?numDossier=".$_POST['numDossier']);
+                     ."/index.php?numDossier=".$_POST['numDossier']
+                     ."&message=ajout_lien_ok");
 } elseif ($_GET['objet'] == 'dossier') {
     $dossier = new Dossier();
     $dossier->nom           = $_POST['nom'];

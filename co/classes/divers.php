@@ -17,7 +17,7 @@ function haut(){
 
 function bas() {
     ?>
-    <div class="copyright">Books & Links Repository | &copy; 2004 Fabien SCHWOB | Script sous licence GNU GPL.</div>
+    <div class="copyright"><a href="http://blr.berlios.de">Books & Links Repository</a> | &copy; 2004 Fabien SCHWOB | Script sous licence GNU GPL.</div>
       </body>
 </html>
 <?php

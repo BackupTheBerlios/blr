@@ -26,6 +26,7 @@ include_once('classes/dossier.class.php');
 include_once('classes/url.class.php');
 include_once('classes/livre.class.php');
 include_once('classes/divers.php');
+include_once('classes/message.class.php');
 
 haut();
 // Un peu d'HTML
@@ -40,6 +41,16 @@ if (isset($_GET['numDossier'])) {
     $dossier = new Dossier(3);
 }
 echo '<div class="arborescence">'.$dossier->arborescence().'</div>';
+
+// Affichage d'un message concernant l'action effectué
+if (isset($_GET['message'])) {
+    $message = new Message();
+    
+    echo '<div class="commentaire">';
+    echo htmlentities($message->recuperer($_GET['message']));
+    echo '</div>';
+}
+
 
 echo '<div class="dossier">';
 // Liste des sous dossiers
@@ -142,9 +153,9 @@ while ($dossier->livreSuivantExiste()) {
         echo    '<br />'."\n";    
     }
 }
+echo '</div>';
 
 // Affichage de la scgnification des icones
-echo '</div>';
 echo '<div class="legende">';
 echo '<img src="icones/lien.png" /> Liens | <img src="icones/livre.png" /> Livre';
 if (isset($_SESSION['login'])) {
@@ -161,6 +172,10 @@ if (isset($_SESSION['login'])) {
     echo '<br /><a href="administration.php">Administration</a> | <a href="logout.php">Quitter le mode <strong>Administrateur</strong></a>';
 } else {
     echo '<br /><a href="administration.php">Passer en mode <strong>Administrateur</strong></a>';
+}
+// Lien pour l'exportation et l'importation en XML
+if (isset($_SESSION['login'])) {
+    echo '<br /><a href="io.php?action=export&numDossier='.$dossier->numDossier.'">'.htmlentities('Exporter depuis ce dossier').'</a>';
 }
 echo '</div>';
 bas();
