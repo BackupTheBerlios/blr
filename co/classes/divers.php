@@ -16,6 +16,7 @@ function haut()
   <head>
     <title>Books &amp; Links Repository</title>
     <link rel="stylesheet" type="text/css"  href="style.css" title="default" />
+    <script src="lib.js" type="text/javascript"></script>
   </head>
   <body>';
 }
