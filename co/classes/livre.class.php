@@ -60,7 +60,8 @@ class Livre extends Document{
     var $listeCommentaire;
     var $cleCouranteCommentaire = 0;
     
-    function Livre($numLivre = 0) {
+    function Livre($numLivre = 0)
+    {
         $this->numLivre = $numLivre;
         if ($numLivre != 0) {
             // Requete SQL permettant de récupérer les infos concernant
@@ -190,13 +191,39 @@ class Livre extends Document{
         deconnexion();
     }
     
-    function dossierSouhaite ($dossierSouhaite) {
+    function dossierSouhaite($dossierSouhaite) {
         $sql =  "UPDATE livre ".
                 "SET dossierSouhaite = '".$dossierSouhaite."' ".
                 "WHERE numLivre = ".$this->numLivre;
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();                
+    }
+    
+    function modifier()
+    {
+        $sql = "UPDATE livre
+                SET    `titre`          = '".$this->titre."',
+                       `sousTitre`      = '".$this->sousTitre."',
+                       `auteur`         = '".$this->auteur."',
+                       `editeur`        = '".$this->editeur."',
+                       `prix`           = '".$this->prix."',
+                       `pages`          = '".$this->pages."',
+                       `numEdition`     = '".$this->numEdition."',
+                       `urlLivre`       = '".$this->urlLivre."',
+                       `isbn`           = '".$this->isbn."',
+                       `dateParution`   = '".$this->dateParution."',
+                       `collection`     = '".$this->collection."',
+                       `langue`         = '".$this->langue."',
+                       `niveau`         = '".$this->niveau."',
+                       `poids`          = '".$this->poids."',
+                       `format`         = '".$this->format."',
+                       `resume`         = '".$this->resume."'
+                WHERE  `numLivre`       = '".$this->numLivre."'";
+        
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
     }
 }
 ?>

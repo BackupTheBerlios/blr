@@ -116,7 +116,7 @@ if ($_GET['action'] == 'ajoutLivre')
     <form id="form1" method="post" action="modifier.php?objet=livre">
         <p>
             <fieldset>
-            <legend>Ajout d'un livre</legend>
+            <legend>Modification d'un livre</legend>
             <label>Titre *</label>
             <input type="text" name="titre" value="<?php echo htmlentities($livre->titre); ?>" /><br />
             <label>Sous-titre</label>
@@ -141,9 +141,9 @@ if ($_GET['action'] == 'ajoutLivre')
             <input type="text" name="collection" value="<?php echo htmlentities($livre->collection); ?>" /><br />
             <label>Niveau</label>
             <select name="niveau">
-                <option value="debutant">D&eacute;butant</option>
-                <option value="experimente">Experiment&eacute;</option>
-                <option value="specialiste">Specialiste</option>
+                <option value="debutant" <?php if ($livre->niveau == 'debutant') echo 'selected="selected"'; ?>>D&eacute;butant</option>
+                <option value="experimente" <?php if ($livre->niveau == 'experimente') echo 'selected="selected"'; ?>>Experiment&eacute;</option>
+                <option value="specialiste" <?php if ($livre->niveau == 'specialiste') echo 'selected="selected"'; ?>>Specialiste</option>
             </select><br />
             <label>Poids</label>
             <input type="text" name="poids" value="<?php echo htmlentities($livre->poids); ?>" /><br />
@@ -157,7 +157,8 @@ if ($_GET['action'] == 'ajoutLivre')
               <option value="us" <?php if ($livre->langue == 'us') echo 'selected="selected"'; ?>>Anglais</option>
             </select><br />
             <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
-            <input type="submit" name="Submit" value="Ajouter le livre" />
+            <input type="hidden" name="numLivre" value="<?php echo $_GET['numLivre'];?>" />
+            <input type="submit" name="Submit" value="Modifier le livre" />
             </fieldset>
         </p>
     </form>
@@ -186,11 +187,11 @@ if ($_GET['action'] == 'ajoutLivre')
         <p>
             <fieldset>
             <legend>Informations sur le lien</legend>            
-            Nom *<br />
+            <label>Nom *</label>
             <input type="text" name="nom" size="60"/><br />
-            Url<br />
+            <label>Url</label>
             <input type="text" name="url" size="60" /><br />
-            Langue *<br />
+            <label>Langue *</label>
             <select name="langue">
               <option value="fr">Fran&ccedil;ais</option>
               <option value="us">Anglais</option>
@@ -216,17 +217,20 @@ if ($_GET['action'] == 'ajoutLivre')
         ?>
         <form id="form1" method="post" action="modifier.php?objet=lien">
             <p>
-                Nom *<br />
+                <fieldset>
+                <legend>Modification du lien</legend>     
+                <label>Nom *</label>
                 <input type="text" name="nom" value="<?php echo $lien->nom ?>" size="60"/><br />
-                Url<br />
+                <label>Url</label>
                 <input type="text" name="url" value="<?php echo $lien->url ?>" size="60" /><br />
-                Langue *<br />
+                <label>Langue *</label>
                 <select name="langue">
                   <option value="fr" <?php if ($lien->langue == 'fr') echo 'selected="selected"'; ?>>Fran&ccedil;ais</option>
                   <option value="us" <?php if ($lien->langue == 'us') echo 'selected="selected"'; ?>>Anglais</option>
                 </select><br />
                 <input type="hidden" name="numUrl" value="<?php echo $_GET['numUrl'];?>" />
                 <input type="submit" name="Submit" value="Modifier le lien" />
+                </fieldset>
             </p>
         </form>
         <?php  

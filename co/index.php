@@ -86,6 +86,7 @@ while ($dossier->urlSuivanteExiste()) {
         // Gestion des options administrateurs
         if (isset($_SESSION['login'])) {
             echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" alt="Supprimer "/></a>';
+            echo '<a href="formulaire.php?action=modifLien&numUrl='.$urlCourante->numUrl.'&numDossier='.$urlCourante->numDossierParent.'"><img src="icones/modifier.png" alt="Editer "/><a/>';
         }
         
         // Affichage du lien
@@ -140,6 +141,7 @@ while ($dossier->livreSuivantExiste()) {
         // Gestion des options administrateurs
         if (isset($_SESSION['login'])) {
             echo '<a href="supprimer.php?objet=livre&numLivre='.$livreCourant->numLivre.'"><img src="icones/supprimer.png" alt="Supprimer" /></a>';
+            echo '<a href="formulaire.php?action=modifLivre&amp;numLivre='.$livreCourant->numLivre.'&amp;numDossier='.$livreCourant->numDossierParent.'"><img src="icones/modifier.png" alt="Editer "/></a>';
         }
         
         // Affichage du livre

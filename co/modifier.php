@@ -51,7 +51,8 @@ if ($_GET['objet'] == 'commentaire') {
                      ."/lien.php?numUrl=".$numUrl);
     }
 } elseif ($_GET['objet'] == 'livre') {
-    $livre = new Livre();
+    $livre = new Livre($_POST['numLivre']);
+    
     $livre->langue          = $_POST['langue'];
     $livre->titre           = $_POST['titre'];
     $livre->sousTitre       = $_POST['sousTitre'];
@@ -69,22 +70,12 @@ if ($_GET['objet'] == 'commentaire') {
     $livre->urlLivre        = $_POST['urlLivre'];
     $livre->resume          = $_POST['resume'];
     
-    // Ajout d'un lien dans le dossier courant
-    if ($_POST['dossier'] == 'courant') {
-        $dossierParent = new Dossier($_POST['numDossier']);
-        $dossierParent->ajouterLivre($livre, isset($_SESSION['login']));
-    
-    // Ajout avec proposition de dossier
-    } elseif ($_POST['dossier'] == 'nouveau') {
-        $dossierParent = new Dossier($_POST['numDossier']);
-        $dossierParent->ajouterLivre($livre, 0);
-        $livre->dossierSouhaite($_POST['nouveauDossier']);
-    }
+    $livre->modifier();
     
     header("Location: http://".$_SERVER['HTTP_HOST']
                      .dirname($_SERVER['PHP_SELF'])
                      ."/index.php?numDossier=".$_POST['numDossier']
-                     ."&message=ajout_livre_ok");
+                     ."&message=modif_livre_ok");
 } elseif ($_GET['objet'] == 'lien') {
     $url = new Url($_POST['numUrl']);
     $url->langue            = $_POST['langue'];

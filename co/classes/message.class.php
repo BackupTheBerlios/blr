@@ -28,6 +28,7 @@ class Message {
     {
         $this->messages = array(
             'ajout_livre_ok'    =>  'Le livre à été ajouté avec succès.',
+            'modif_livre_ok'    =>  'Le livre à été modifié avec succès.',
             'ajout_lien_ok'     =>  'Le lien à été ajouté avec succès.'
         );
     }
