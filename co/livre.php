@@ -41,6 +41,7 @@ if (isset($_GET['numLivre'])) {
     echo htmlentities($livre->sousTitre)."</h2>";
     
     echo '<div class="dossier">';
+    echo '<p>';
     echo '<strong>Auteur</strong> : '.htmlentities($livre->auteur).'<br />';
     echo '<strong>Editeur</strong> : '.htmlentities($livre->editeur).'<br />';
     
@@ -61,14 +62,15 @@ if (isset($_GET['numLivre'])) {
     echo htmlentities($livre->niveau)."<br />";
     echo htmlentities($livre->poids)."<br />";
     echo htmlentities($livre->format)."<br />";
+    echo '</p>';
     
-    echo nl2br(htmlentities($livre->resume));
+    echo '<p>'.nl2br(htmlentities($livre->resume)).'</p>';
     echo '</div>';
     
-    // Déplacement du livre
+    // Options admin
     if (isset($_SESSION['login']))
     {
-        echo '<div class="dossier">';
+        echo '<div class="dossier" title="Option Administrateur">';
         $liste = Dossier::listeTousDossier();
         echo '<form name="form1" id="form1" method="post" action="deplacer.php">';
         echo 'Deplacer le livre vers le dossier : ';
@@ -81,7 +83,10 @@ if (isset($_GET['numLivre'])) {
         echo '<input type="hidden" name="numLivre" value="'.$livre->numLivre.'" />';
         echo '<input type="hidden" name="objet" value="livre" />';
         echo '<input type="submit" name="go" value="D&eacute;placer" />';
-        echo '</form>';  
+        echo '</form>';
+        
+        echo '<p><a href="formulaire.php?action=modifLivre&amp;numLivre='.$livre->numLivre.'&amp;numDossier='.$livre->numDossierParent.'">Editer le livre</a></p>';
+        
         echo '</div>';
     }
     

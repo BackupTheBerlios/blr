@@ -21,6 +21,8 @@
 
 session_start();
 
+define('DOSSIER_RACINE', 3);
+
 // Inclusion des fichiers nécessaires
 include_once('classes/dossier.class.php');
 include_once('classes/url.class.php');
@@ -38,9 +40,9 @@ if (isset($_GET['numDossier'])) {
     $dossier = new Dossier($_GET['numDossier']);
 } else {
     // On définit ici le numéro du dossier racine
-    $dossier = new Dossier(3);
+    $dossier = new Dossier(DOSSIER_RACINE);
 }
-echo '<div class="arborescence"><strong>R&eacute;pertoire</strong> : '.$dossier->arborescence().'</div>';
+echo '<p class="arborescence"><strong>R&eacute;pertoire</strong> : '.$dossier->arborescence().'</p>';
 
 // Affichage d'un message concernant l'action effectué
 if (isset($_GET['message'])) {
@@ -53,21 +55,28 @@ if (isset($_GET['message'])) {
 
 
 echo '<div class="dossier">';
-// Liste des sous dossiers
+
+/**
+ *  Affichage des sous-dossier du dossier courant
+ **/
+
 $dossier->listeSousDossier();
 while ($dossier->dossierSuivantExiste()) {
     $dossierCourant = $dossier->sousDossierSuivant();
     
     // Gestion des options administrateurs
         if (isset($_SESSION['login'])) {
-            echo '<a href="supprimer.php?objet=dossier&amp;numDossier='.$dossierCourant->numDossier.'" onClick="return validerSuppression()"><img src="icones/supprimer.png" alt="icone pour la suppression"/></a>';
-            echo '<a href="formulaire.php?action=modifDossier&amp;numDossier='.$dossierCourant->numDossier.'" ><img src="icones/modifier.png" alt="icone pour la suppression"/></a> ';
+            echo '<a href="supprimer.php?objet=dossier&amp;numDossier='.$dossierCourant->numDossier.'" onClick="return validerSuppression()"><img src="icones/supprimer.png" alt="Supprimer "/></a>';
+            echo '<a href="formulaire.php?action=modifDossier&amp;numDossier='.$dossierCourant->numDossier.'" ><img src="icones/modifier.png" alt="Editer "/></a> ';
         }
     
-    echo  '<img src="icones/dossier.png" alt="icone d\'un dossier"/> <a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$dossierCourant->numDossier.'">'.htmlentities($dossierCourant->nom).'</a><br />'."\n";
+    echo  '<img src="icones/dossier.png" alt="[Dossier]"/> <a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$dossierCourant->numDossier.'">'.htmlentities($dossierCourant->nom).'</a><br />'."\n";
 }
 
-// Liste des urls
+/**
+ *  Affichage des URLs contenu dans le dossier courant
+ **/
+ 
 $dossier->listeUrl();
 while ($dossier->urlSuivanteExiste()) {
     $urlCourante = $dossier->urlSuivante();
@@ -76,13 +85,13 @@ while ($dossier->urlSuivanteExiste()) {
     {
         // Gestion des options administrateurs
         if (isset($_SESSION['login'])) {
-            echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" alt="icone pour la suppression"/></a>';
+            echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" alt="Supprimer "/></a>';
         }
         
         // Affichage du lien
-        echo    '<a href="'.$urlCourante->url.'"><img src="icones/lien.png" alt="icone d\'un lien"/></a> '.
-                '<img src="icones/pays/'.$urlCourante->langue.'.png" alt="icone d\'un drapeau"/>'.
-                ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> ';
+        echo    '<a href="'.$urlCourante->url.'" title="'.$urlCourante->nom.'"><img src="icones/lien.png" alt="[lien]"/></a> '.
+                '<img src="icones/pays/'.$urlCourante->langue.'.png" alt="['.$urlCourante->langue.']"/>'.
+                ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'" title="'.$urlCourante->url.'">'.htmlentities($urlCourante->nom).'</a> ';
         $nombreDeCommentaire = $urlCourante->nombreCommentaire();
         if ($nombreDeCommentaire > 0) {
             echo    '- '.$nombreDeCommentaire.' commentaire(s)';
@@ -99,13 +108,13 @@ while ($dossier->urlSuivanteExiste()) {
     {
         // Gestion des options administrateurs
         if (isset($_SESSION['login'])) {
-            echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" /></a>';
+            echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" alt="Supprimer"/></a>';
         }
         
         // Affichage du lien
-        echo    '<img src="icones/lien.png" alt="icone d\'un lien"/> '.
-                '<img src="icones/pays/'.$urlCourante->langue.'.png" alt="icone d\'un drapeau"/>'.
-                ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> '.
+        echo    '<img src="icones/lien.png" alt="[Lien]"/> '.
+                '<img src="icones/pays/'.$urlCourante->langue.'.png" alt="[Drapeau]"/>'.
+                ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'" title="'.$urlCourante->url.'">'.htmlentities($urlCourante->nom).'</a> '.
                 '- '.$urlCourante->nombreCommentaire().' commentaire(s)';
         
         //Affichage de la note si elle existe (cad au moins 1 commentaire)
@@ -117,7 +126,10 @@ while ($dossier->urlSuivanteExiste()) {
     }
 }
 
-// Liste des livres
+/**
+ *  Affichage des livres contenu dans le dossier courant
+ **/
+
 $dossier->listeLivre();
 while ($dossier->livreSuivantExiste()) {
     $livreCourant = $dossier->livreSuivant();
@@ -127,12 +139,12 @@ while ($dossier->livreSuivantExiste()) {
     {
         // Gestion des options administrateurs
         if (isset($_SESSION['login'])) {
-            echo '<a href="supprimer.php?objet=livre&numLivre='.$livreCourant->numLivre.'"><img src="icones/supprimer.png" /></a>';
+            echo '<a href="supprimer.php?objet=livre&numLivre='.$livreCourant->numLivre.'"><img src="icones/supprimer.png" alt="Supprimer" /></a>';
         }
         
         // Affichage du livre
-        echo    '<img src="icones/livre.png" alt="icone d\'un livre"/> '.
-                '<img src="icones/pays/'.$livreCourant->langue.'.png" alt="icone d\'un drapeau"/> '.
+        echo    '<img src="icones/livre.png" alt="[Livre]"/> '.
+                '<img src="icones/pays/'.$livreCourant->langue.'.png" alt="['.$livreCourant->langue.']"/> '.
                 '<a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> '.
                 '- '.$livreCourant->nombreCommentaire().' commentaire(s) ';
         
@@ -166,7 +178,7 @@ while ($dossier->livreSuivantExiste()) {
 echo '</div>';
 
 // Déplacement du dossier
-if (isset($_SESSION['login']) && $dossier->numDossier != 3)
+if (isset($_SESSION['login']) && $dossier->numDossier != DOSSIER_RACINE)
 {
     echo '<div class="dossier">';
     $liste = Dossier::listeTousDossier($dossier->numDossier);
@@ -185,16 +197,16 @@ if (isset($_SESSION['login']) && $dossier->numDossier != 3)
     echo '</div>';
 }
 
-// Affichage de la scgnification des icones
-echo '<div class="legende">';
-echo '<img src="icones/lien.png" alt="icone d\'un lien"/> Liens | <img src="icones/livre.png" alt="icone d\'un livre"/> Livre';
+// Affichage de la signification des icones
+echo '<p class="legende" title="L&eacute;gende des icones">';
+echo '<img src="icones/lien.png" alt="[Lien]"/> Liens | <img src="icones/livre.png" alt="[Livre]"/> Livre';
 if (isset($_SESSION['login'])) {
-    echo ' | <img src="icones/supprimer.png" alt="icone pour supprimer"/> Supprimer';
+    echo ' | <img src="icones/supprimer.png" alt="[Supprimer]"/> Supprimer';
 }
-echo '</div>';
+echo '</p>';
 
 // Affichage des liens pour ajouter des éléments
-echo '<div class="ajout">';
+echo '<div class="ajout"><p>';
 echo    '<a href="formulaire.php?action=ajoutLivre&amp;numDossier='.$dossier->numDossier.'">Ajouter un livre</a> | '.
         '<a href="formulaire.php?action=ajoutLien&amp;numDossier='.$dossier->numDossier.'">Ajouter un lien</a>';
 
@@ -209,6 +221,6 @@ if (isset($_SESSION['login'])) {
 if (isset($_SESSION['login'])) {
     echo '<br /><a href="io.php?action=export&amp;numDossier='.$dossier->numDossier.'">'.htmlentities('Exporter depuis ce dossier').'</a>';
 }
-echo '</div>';
+echo '</p></div>';
 bas();
 ?>

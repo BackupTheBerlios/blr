@@ -97,6 +97,64 @@ if ($_GET['action'] == 'ajoutLivre')
     <?php
 
 /**
+ *  Modification d'un livre
+ */
+
+}if ($_GET['action'] == 'modifLivre')
+{
+    $livre = new Livre($_GET['numLivre']);
+    $dossier = new Dossier($_GET['numDossier']);
+    echo '<div class="arborescence">Modification d\'un livre dans  <strong>'.$dossier->arborescence().'</strong></div>';
+    echo '<div class="dossier">';
+    ?>
+    <form id="form1" method="post" action="modifier.php?objet=livre">
+        <p>
+            Titre *<br />
+            <input type="text" name="titre" value="<?php echo htmlentities($livre->titre); ?>" /><br />
+            Sous-titre<br />
+            <input type="text" name="sousTitre" value="<?php echo htmlentities($livre->sousTitre); ?>" /><br />
+            Auteur<br />
+            <input type="text" name="auteur" value="<?php echo htmlentities($livre->auteur); ?>" /><br />
+            Editeur<br />
+            <input type="text" name="editeur" value="<?php echo htmlentities($livre->editeur); ?>" /><br />
+            Prix<br />
+            <input type="text" name="prix" value="<?php echo htmlentities($livre->prix); ?>" /><br />
+            Pages<br />
+            <input type="text" name="pages" value="<?php echo htmlentities($livre->pages); ?>" /><br />
+            Edition<br />
+            <input type="text" name="numEdition" value="<?php echo htmlentities($livre->numEdition); ?>" /><br />
+            Site du livre <br />
+            <input type="text" name="urlLivre" value="<?php echo htmlentities($livre->urlLivre); ?>" /><br />
+            ISBN<br />
+            <input type="text" name="isbn" value="<?php echo htmlentities($livre->isbn); ?>" /><br />
+            Date de parution <br />
+            <input type="text" name="dateParution" value="<?php echo htmlentities($livre->dateParution); ?>" /><br />
+            Collection<br />
+            <input type="text" name="collection" value="<?php echo htmlentities($livre->collection); ?>" /><br />
+            Niveau<br />
+            <select name="niveau">
+                <option value="debutant">D&eacute;butant</option>
+                <option value="experimente">Experiment&eacute;</option>
+                <option value="specialiste">Specialiste</option>
+            </select><br />
+            Poids<br />
+            <input type="text" name="poids" value="<?php echo htmlentities($livre->poids); ?>" /><br />
+            Format<br />
+            <input type="text" name="format" value="<?php echo htmlentities($livre->format); ?>" /><br />
+            R&eacute;sum&eacute; du livre <br />
+            <textarea name="resume" cols="72" rows="7"><?php echo htmlentities($livre->resume); ?></textarea><br />
+            Langue *<br />
+            <select name="langue">
+              <option value="fr" <?php if ($livre->langue == 'fr') echo 'selected="selected"'; ?>>Fran&ccedil;ais</option>
+              <option value="us" <?php if ($livre->langue == 'us') echo 'selected="selected"'; ?>>Anglais</option>
+            </select><br />
+            <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
+            <input type="submit" name="Submit" value="Ajouter le livre" />
+        </p>
+    </form>
+    <?php
+
+/**
  *  Ajout d'un lien
  */
 

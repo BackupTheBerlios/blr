@@ -1,6 +1,7 @@
 body
 {
     font-family: sans-serif;
+    width: 780px;
 }
 
 h1
@@ -18,7 +19,7 @@ h2
     margin-bottom: 2px;
 }
 
-div.arborescence
+p.arborescence
 {
     font-size: 14px;
     margin-top: 5px;
@@ -37,7 +38,7 @@ div.dossier
     background-color: #F4F4F4;
 }
 
-div.legende
+p.legende
 {
     font-size: 14px;
     margin-top: 5px;
@@ -114,7 +115,10 @@ p.nouveau
     border-bottom: 1px dashed black;
     padding-bottom: 5px;  
 }
-
+p
+{
+    margin: 0px;   
+}
 a[hreflang]:after {
   content: " [" attr(hreflang) "] ";
   color: #cc9933;
