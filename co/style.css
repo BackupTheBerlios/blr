@@ -114,3 +114,9 @@ p.nouveau
     border-bottom: 1px dashed black;
     padding-bottom: 5px;  
 }
+
+a[hreflang]:after {
+  content: " [" attr(hreflang) "] ";
+  color: #cc9933;
+  font-weight: smaller;
+}

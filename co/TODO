@@ -17,3 +17,8 @@ Système qui verifie s'il y a des liens morts.
     ----------------------------
 
 "Configurabilité" de l'application (definir si tout le monde peut ajouter du contenu, exporter la base, etc...)
+
+    Sémantique des pages *
+    ----------------------
+    
+Utilisation de l'attribut hreflang de la balise a (seulement sous Gecko
