@@ -70,3 +70,6 @@ div.copyright {
 a:link {
     text-decoration: none;
 }
+img {
+    border: 0px;   
+}
