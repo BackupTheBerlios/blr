@@ -80,9 +80,9 @@ class Dossier {
         deconnexion();
         
         // On ajoute le dossier parent à la liste des dossiers
-        if ($this->numDossierParent != 0) {
+        /*if ($this->numDossierParent != 0) {
             $this->listeSousDossier[] = new Dossier($this->numDossierParent);
-        }
+        }*/
         
         // On parcours le résultat et on crée les dossier correspondant
         while ($dossier = mysql_fetch_array($resultat)) {
@@ -184,7 +184,7 @@ class Dossier {
         return $livre;
     }
     
-    function arborescence($separateur = '/')
+    function arborescence($separateur = ' / ')
     {
         $arbo = "";
         $numDossierParent = $this->numDossier;
@@ -348,6 +348,36 @@ class Dossier {
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
+    }
+    
+    function supprimer()
+    {
+        $sql_select = "SELECT numDossier FROM dossier WHERE numDossierParent = '".$this->numDossier."'";
+        $sql_suppr_dossier = "DELETE FROM dossier WHERE numDossier = '".$this->numDossier."'";
+        $sql_suppr_livre = "DELETE FROM livre WHERE numDossierParent = '".$this->numDossier."'";
+        $sql_suppr_url = "DELETE FROM url WHERE numDossierParent = '".$this->numDossier."'";
+        connexion();
+        mysql_query($sql_suppr_dossier);
+        mysql_query($sql_suppr_url);
+        mysql_query($sql_suppr_livre);
+        $resultat = mysql_query($sql_select);
+        $nbSousDossier = mysql_num_rows($resultat);
+        deconnexion();
+        if ($nbSousDossier > 0) {
+            while ($sousDossier = mysql_fetch_array($resultat)) {
+                $dossierCourant = new Dossier($sousDossier['numDossier']);    
+                $dossierCourant->supprimer();
+            }    
+        }
+
+        // On supprime les livres et liens qu'il contient
+        // On recommence avec ses sous-dossiers    
+        // On supprime le dossier
+        
+        // OU
+        
+        // On selectionne l'id des sous-dossiers
+        // on supprime le contenu avec un id de sous dossier
     }
 }
 ?>

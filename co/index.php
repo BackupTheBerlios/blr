@@ -40,7 +40,7 @@ if (isset($_GET['numDossier'])) {
     // On définit ici le numéro du dossier racine
     $dossier = new Dossier(3);
 }
-echo '<div class="arborescence">'.$dossier->arborescence().'</div>';
+echo '<div class="arborescence"><strong>R&eacute;pertoire</strong> : '.$dossier->arborescence().'</div>';
 
 // Affichage d'un message concernant l'action effectué
 if (isset($_GET['message'])) {
@@ -56,7 +56,6 @@ echo '<div class="dossier">';
 // Liste des sous dossiers
 $dossier->listeSousDossier();
 while ($dossier->dossierSuivantExiste()) {
-    
     $dossierCourant = $dossier->sousDossierSuivant();
     
     // Gestion des options administrateurs
