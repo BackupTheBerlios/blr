@@ -206,6 +206,28 @@ class Dossier {
         return $arbo;
     }
     
+    function arborescenceSansLien()
+    {
+        $arbo = "";
+        $numDossierParent = $this->numDossier;
+        do {
+            $sql = "SELECT nom, numDossierParent, numDossier FROM dossier WHERE numDossier = ".$numDossierParent;
+            connexion();
+            $resultat = mysql_query($sql);
+            deconnexion();
+            $doss = mysql_fetch_array($resultat);
+            
+            // On récupère les données venant de la base MySQL
+            $nom = $doss['nom'];
+            $numDossierParent = $doss['numDossierParent'];
+            $numDossier = $doss['numDossier'];
+            
+            // On construit l'arborescence
+            $arbo = ' &gt; '.''.$nom.''.$arbo;
+        } while ($nom != "..");
+        return $arbo;
+    }
+    
     function ajouterLivre($livre)
     {
         $sql =  "INSERT INTO livre (numDossierParent, langue, titre, sousTitre, auteur, ".
@@ -237,6 +259,21 @@ class Dossier {
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
+    }
+    
+    function listeTousDossier()
+    {
+        $liste = array();
+        $sql = "SELECT numDossier FROM dossier";
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+        while ($numDossier = mysql_fetch_array($resultat)) {
+            $dossier = new Dossier($numDossier['numDossier']);
+            $liste[$dossier->numDossier] = $dossier->arborescenceSansLien();
+        }
+        asort($liste);
+        return $liste;
     }
 }
 ?>

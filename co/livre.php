@@ -64,6 +64,27 @@ if (isset($_GET['numLivre'])) {
     
     echo nl2br(htmlentities($livre->resume));
     echo '</div>';
+    
+    // Déplacement du livre
+    if (isset($_SESSION['login']))
+    {
+        echo '<div class="dossier">';
+        $liste = Dossier::listeTousDossier();
+        echo '<form name="form1" id="form1" method="post" action="deplacer.php">';
+        echo 'Deplacer le livre vers le dossier : ';
+        echo '<select name="numDossier">';
+        
+        foreach ($liste as $cle => $ligne) {
+            echo '<option value="'.$cle.'">'.$ligne.'</option>';    
+        }
+        echo '</select>';
+        echo '<input type="hidden" name="numLivre" value="'.$livre->numLivre.'" />';
+        echo '<input type="hidden" name="objet" value="livre" />';
+        echo '<input type="submit" name="go" value="D&eacute;placer" />';
+        echo '</form>';  
+        echo '</div>';
+    }
+    
     echo '<a href="index.php?numDossier='.$livre->numDossierParent.'">Retour au dossier</a>';
     
     // On affiche les liens pour la validation, si le livre n'a pas

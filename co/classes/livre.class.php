@@ -177,5 +177,15 @@ class Livre extends Document{
         $resultat = mysql_query($sql);
         deconnexion();
     }
+    
+    function deplacerVers($dossier)
+    {
+        $sql =  "UPDATE livre ".
+                "SET numDossierParent  = ".$dossier->numDossier." ".
+                "WHERE numLivre = ".$this->numLivre;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+    }
 }
 ?>
