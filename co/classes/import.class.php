@@ -25,7 +25,7 @@ require_once('url.class.php');
 require_once('dossier.class.php');
 require_once('livre.class.php');
 
-header("content-type: text/plain; charset=ISO-8859-15");
+header("content-type: text/plain; charset=iso-8859-15");
 
 if(!$dom = domxml_open_file(realpath("test.xml"))) {
   echo "Erreur lors de l'analyse du document\n";
@@ -34,44 +34,52 @@ if(!$dom = domxml_open_file(realpath("test.xml"))) {
 $root = $dom->document_element();
 $fils = $root->first_child();
 
-/*function listeElementNoeudCourant ($noeud) {
-    while($noeud) {
-        //echo $noeud->node_name().$noeud->node_value()."\n";
-        echo ajout($noeud)."\n";
-        if ($noeud->has_child_nodes()) {
-            $fils = $noeud->first_child();
-            if ($fils->node_name() == 'dossier') {
-                echo "\t".listeElementNoeudCourant($fils);
-            } else {
-                while($fils) {
-                    echo "\t".$fils->node_name()."\n";
-                    $fils = $fils->next_sibling();
-                }
-            }
-        }
-        $noeud = $noeud->next_sibling();
+function tab($taille) {
+    $chaine = '';
+    for ($i = 1; $i <= $taille; $i++) {
+        $chaine .= "\t";
     }
-}*/
+    return $chaine;
+}
+        
+
 function listeElementNoeudCourant ($noeud, $numDossier, $iter = 0) {
     $iter++;
     while($noeud) {
         switch ($noeud->node_name()) {
             case "dossier":
+                
+                // Ajout d'un dossier 
                 $nom = $noeud->get_attribute('nom');
-                echo $iter."-"."dossier ".$nom."\n";
+                echo tab($iter).$iter."-"."dossier ".$nom."\n";
                 $dossierParent = new Dossier($numDossier);
                 $dossier = new Dossier();
                 $dossier->nom = $nom;
-                $numNouveauDossier = $dossierParent->ajouterDossier($dossier);
+                //$numNouveauDossier = $dossierParent->ajouterDossier($dossier);
                 
                 $fils = $noeud->first_child();
-                echo listeElementNoeudCourant($fils, $numNouveauDossier, $iter);
+                listeElementNoeudCourant($fils, $numNouveauDossier, $iter);
                 break;
             case "lien":
+            
+                // On récupère les variables
                 $langue = $noeud->get_attribute('langue');
                 $url    = $noeud->get_attribute('url');
                 $nom    = $noeud->get_attribute('nom');
-                echo $iter."-"."lien [".$langue.
+                
+                // On crée les objets Dossier et Url
+                $dossierParent  = new Dossier($numDossier);
+                $lien           = new Url();
+                
+                // On définit les attributs de l'Url
+                $lien->langue   = $langue;
+                $lien->url      = $url;
+                $lien->nom      = $nom;
+                
+                // On ajoute le lien
+                //$dossierParent->ajouterLien($lien, 1);
+                
+                echo tab($iter).$iter."-"."lien [".$langue.
                     '] '.$url.' '.$nom."\n";
                 break;
             case "livre":

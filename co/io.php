@@ -30,7 +30,7 @@ include_once('classes/divers.php');
 
 if (isset($_SESSION['login']) && $_GET['action'] == 'export')
 {
-    header('Content-Type: text/xml');
+    header('Content-Type: text/xml; charset=iso-8859-15');
     header('Content-Disposition: attachment; filename=export.xml');
     header('Pragma: no-cache');
     header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');

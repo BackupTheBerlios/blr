@@ -242,11 +242,11 @@ class Dossier {
         deconnexion();
     }
     
-    function ajouterLien($lien)
+    function ajouterLien($lien, $valider = 0)
     {
-        $sql =  "INSERT INTO url (numDossierParent, langue, nom, url)".
+        $sql =  "INSERT INTO url (numDossierParent, langue, nom, url, valider)".
                 " VALUES ('".$this->numDossier."', '".$lien->langue.
-                "', '".$lien->nom."', '".$lien->url."')";
+                "', '".$lien->nom."', '".$lien->url."', ".$valider.")";
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
