@@ -60,6 +60,7 @@ if (isset($_GET['numUrl'])) {
         echo '<input type="hidden" name="objet" value="lien" />';
         echo '<input type="submit" name="go" value="D&eacute;placer" />';
         echo '</form>';  
+        echo '<p><a href="formulaire.php?action=modifLien&numUrl='.$lien->numUrl.'&numDossier='.$lien->numDossierParent.'">Modifier le lien<a/></p>';
         echo '</div>';
     }
     

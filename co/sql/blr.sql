@@ -3,7 +3,7 @@
 # http://www.phpmyadmin.net
 #
 # Serveur: localhost
-# Généré le : Dimanche 21 Mars 2004 à 17:02
+# Généré le : Mardi 06 Avril 2004 à 19:49
 # Version du serveur: 4.0.16
 # Version de PHP: 4.3.2
 # 
@@ -16,7 +16,7 @@
 # Structure de la table `admin`
 #
 # Création: Mercredi 04 Février 2004 à 20:35
-# Dernière modification: Lundi 09 Février 2004 à 22:34
+# Dernière modification: Lundi 09 Février 2004 à 23:34
 # Dernière vérification: Jeudi 19 Février 2004 à 23:06
 #
 
@@ -41,7 +41,7 @@ INSERT INTO `admin` (`numAdmin`, `login`, `password`) VALUES (1, 'skink', 'fuka'
 # Structure de la table `commentaire`
 #
 # Création: Jeudi 05 Février 2004 à 22:21
-# Dernière modification: Mardi 17 Février 2004 à 19:23
+# Dernière modification: Mardi 17 Février 2004 à 20:23
 # Dernière vérification: Mardi 17 Février 2004 à 19:23
 #
 
@@ -71,8 +71,8 @@ INSERT INTO `commentaire` (`numCommentaire`, `numLivre`, `numUrl`, `auteur`, `co
 # Structure de la table `dossier`
 #
 # Création: Mardi 17 Février 2004 à 23:38
-# Dernière modification: Jeudi 04 Mars 2004 à 21:08
-# Dernière vérification: Jeudi 19 Février 2004 à 23:06
+# Dernière modification: Mardi 06 Avril 2004 à 19:32
+# Dernière vérification: Mardi 06 Avril 2004 à 12:57
 #
 
 DROP TABLE IF EXISTS `dossier`;
@@ -81,41 +81,32 @@ CREATE TABLE `dossier` (
   `numDossierParent` int(10) unsigned default '0',
   `nom` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`numDossier`)
-) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=106 ;
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=113 ;
 
 #
 # Contenu de la table `dossier`
 #
 
-INSERT INTO `dossier` (`numDossier`, `numDossierParent`, `nom`) VALUES (1, 3, 'Java'),
-(2, 3, 'UML'),
+INSERT INTO `dossier` (`numDossier`, `numDossierParent`, `nom`) VALUES (2, 3, 'UML'),
 (3, 0, '..'),
-(4, 1, 'Expert'),
 (5, 3, 'Python'),
-(8, 3, 'PHP'),
-(9, 3, 'Anne'),
-(10, 3, 'Hébergement'),
-(11, 10, 'Français'),
-(12, 1, 'News'),
-(13, 3, 'MySQL'),
-(15, 11, 'test'),
-(16, 3, 'test'),
-(105, 3, 'fabien');
+(8, 3, 'PHP');
 
 # --------------------------------------------------------
 
 #
 # Structure de la table `livre`
 #
-# Création: Lundi 09 Février 2004 à 13:29
-# Dernière modification: Dimanche 29 Février 2004 à 14:15
-# Dernière vérification: Mardi 17 Février 2004 à 19:23
+# Création: Lundi 05 Avril 2004 à 13:09
+# Dernière modification: Mardi 06 Avril 2004 à 13:09
+# Dernière vérification: Mardi 06 Avril 2004 à 12:57
 #
 
 DROP TABLE IF EXISTS `livre`;
 CREATE TABLE `livre` (
   `numLivre` int(10) unsigned NOT NULL auto_increment,
   `numDossierParent` int(10) unsigned NOT NULL default '0',
+  `dossierSouhaite` varchar(255) default NULL,
   `note` decimal(5,2) NOT NULL default '0.00',
   `nombreNote` int(10) unsigned NOT NULL default '0',
   `langue` varchar(10) NOT NULL default '',
@@ -138,24 +129,24 @@ CREATE TABLE `livre` (
   `resume` text,
   `valider` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`numLivre`)
-) TYPE=MyISAM AUTO_INCREMENT=17 ;
+) TYPE=MyISAM AUTO_INCREMENT=27 ;
 
 #
 # Contenu de la table `livre`
 #
 
-INSERT INTO `livre` (`numLivre`, `numDossierParent`, `note`, `nombreNote`, `langue`, `nombreClick`, `titre`, `sousTitre`, `auteur`, `editeur`, `prix`, `pages`, `numEdition`, `lienCommercial`, `isbn`, `dateParution`, `collection`, `niveau`, `poids`, `format`, `urlLivre`, `resume`, `valider`) VALUES (1, 5, '0.00', 0, 'fr', 0, 'Python en concentré', 'Manuel de référence', 'Alex Martelli', 'O\'Reilly', '54.00', 255, 1, NULL, '2-84177-290-X', 'janvier 2004', NULL, NULL, NULL, NULL, 'http://www.oreilly.fr/catalogue/284177290X.html', 'Le programmeur Python est un programmeur heu-reux ! Python réunit de nombreuses vertus, qui en font un langage de plus en plus apprécié, aussi bien des administrateurs système pour ses qualités de langage de script que des développeurs pour la rigueur de son modèle objet, sa portabilité et son extensibilité. Polyvalent, il autorise aussi bien la programmation procédurale qu\'orientée objet. Il s\'interface aisément avec des composantes C ou Java. Derrière une simplicité apparente, se cache un langage puissant capable de relever les défis les plus ambitieux. En outre, il bénéficie d\'une imposante collection de bibliothèques et de modules d\'extension.', 1),
-(2, 2, '0.00', 0, 'fr', 0, 'Introduction à UML', 'Modélisation de projets', 'Sinan Si Alhir', 'O\'Reilly', '40.00', 232, 1, NULL, '2-84177-279-9', 'décembre 2003', NULL, NULL, NULL, NULL, 'http://www.oreilly.fr/catalogue/2841772799.html', 'Le lecteur qui ne connaît ni UML (Unified Modeling Language) ni même la notion d\'objet au sens informatique du terme trouvera dans cet ouvrage des explications limpides et structurées et pourra les mettre en application sans tarder. L\'auteur commence par une solide présentation de la technologie objet avant d\'aborder en détail les différents types de diagrammes qui composent UML, indépendamment de tout langage d\'implémentation. Une étude de cas constitue le fil rouge et permet d\'ancrer dans la réalité des notions a priori abstraites.', 1),
-(3, 5, '0.00', 0, 'fr', 0, 'Apprendre à programmer avec Python', 'La programmation à porté de tous', 'Gérard Swinnen', 'O\'Reilly', '36.00', 255, 1, NULL, '2-84177-294-2', 'décembre 2003', NULL, 'Débutant', NULL, NULL, 'http://www.oreilly.fr/catalogue/2841772942.html', 'Le bon duo pour apprendre à programmer, c\'est un langage bien structuré, simple, mais suffisamment évolué, en l\'occurrence Python, et une démarche pédagogique confirmée. Gérard Swinnen, qui enseigne l\'informatique dans une établissement d\'enseignement secondaire sait de quoi il parle. Très vite, le lecteur pourra réaliser des applications simples, mais utiles, et prendra goût à la programmation.', 1),
-(4, 8, '0.00', 0, 'fr', 0, 'PHP en action', '290 recettes pour la programmation en PHP', 'David Sklar et Adam Trachtenberg', 'O\'Reilly', '43.00', 255, 1, NULL, '2-84177-231-4', 'septembre 2003', '', 'debutant', 0, '', 'http://www.oreilly.fr/catalogue/2841772314.html', 'PHP est le principal langage de développement rapide pour le Web grâce à ses nombreuses fonctionnalités, sa syntaxe accessible et sa disponibilité pour toutes les plates-formes. Avec PHP en action, vous trouverez un recueil de 290 recettes, prêtes à l\'emploi, qui répondent à tous les problèmes les plus fréquents que se posent les administrateurs de sites web, les webmasters ou les développeurs PHP.', 1);
+INSERT INTO `livre` (`numLivre`, `numDossierParent`, `dossierSouhaite`, `note`, `nombreNote`, `langue`, `nombreClick`, `titre`, `sousTitre`, `auteur`, `editeur`, `prix`, `pages`, `numEdition`, `lienCommercial`, `isbn`, `dateParution`, `collection`, `niveau`, `poids`, `format`, `urlLivre`, `resume`, `valider`) VALUES (1, 5, NULL, '0.00', 0, 'fr', 0, 'Python en concentré', 'Manuel de référence', 'Alex Martelli', 'O\'Reilly', '54.00', 255, 1, NULL, '2-84177-290-X', 'janvier 2004', NULL, NULL, NULL, NULL, 'http://www.oreilly.fr/catalogue/284177290X.html', 'Le programmeur Python est un programmeur heu-reux ! Python réunit de nombreuses vertus, qui en font un langage de plus en plus apprécié, aussi bien des administrateurs système pour ses qualités de langage de script que des développeurs pour la rigueur de son modèle objet, sa portabilité et son extensibilité. Polyvalent, il autorise aussi bien la programmation procédurale qu\'orientée objet. Il s\'interface aisément avec des composantes C ou Java. Derrière une simplicité apparente, se cache un langage puissant capable de relever les défis les plus ambitieux. En outre, il bénéficie d\'une imposante collection de bibliothèques et de modules d\'extension.', 1),
+(2, 2, NULL, '0.00', 0, 'fr', 0, 'Introduction à UML', 'Modélisation de projets', 'Sinan Si Alhir', 'O\'Reilly', '40.00', 232, 1, NULL, '2-84177-279-9', 'décembre 2003', NULL, NULL, NULL, NULL, 'http://www.oreilly.fr/catalogue/2841772799.html', 'Le lecteur qui ne connaît ni UML (Unified Modeling Language) ni même la notion d\'objet au sens informatique du terme trouvera dans cet ouvrage des explications limpides et structurées et pourra les mettre en application sans tarder. L\'auteur commence par une solide présentation de la technologie objet avant d\'aborder en détail les différents types de diagrammes qui composent UML, indépendamment de tout langage d\'implémentation. Une étude de cas constitue le fil rouge et permet d\'ancrer dans la réalité des notions a priori abstraites.', 1),
+(3, 5, NULL, '0.00', 0, 'fr', 0, 'Apprendre à programmer avec Python', 'La programmation à porté de tous', 'Gérard Swinnen', 'O\'Reilly', '36.00', 255, 1, NULL, '2-84177-294-2', 'décembre 2003', NULL, 'Débutant', NULL, NULL, 'http://www.oreilly.fr/catalogue/2841772942.html', 'Le bon duo pour apprendre à programmer, c\'est un langage bien structuré, simple, mais suffisamment évolué, en l\'occurrence Python, et une démarche pédagogique confirmée. Gérard Swinnen, qui enseigne l\'informatique dans une établissement d\'enseignement secondaire sait de quoi il parle. Très vite, le lecteur pourra réaliser des applications simples, mais utiles, et prendra goût à la programmation.', 1),
+(4, 8, NULL, '0.00', 0, 'fr', 0, 'PHP en action', '290 recettes pour la programmation en PHP', 'David Sklar et Adam Trachtenberg', 'O\'Reilly', '43.00', 255, 1, NULL, '2-84177-231-4', 'septembre 2003', '', 'debutant', 0, '', 'http://www.oreilly.fr/catalogue/2841772314.html', 'PHP est le principal langage de développement rapide pour le Web grâce à ses nombreuses fonctionnalités, sa syntaxe accessible et sa disponibilité pour toutes les plates-formes. Avec PHP en action, vous trouverez un recueil de 290 recettes, prêtes à l\'emploi, qui répondent à tous les problèmes les plus fréquents que se posent les administrateurs de sites web, les webmasters ou les développeurs PHP.', 1);
 
 # --------------------------------------------------------
 
 #
 # Structure de la table `url`
 #
-# Création: Dimanche 29 Février 2004 à 13:53
-# Dernière modification: Jeudi 04 Mars 2004 à 22:38
+# Création: Mardi 06 Avril 2004 à 19:23
+# Dernière modification: Mardi 06 Avril 2004 à 19:24
 #
 
 DROP TABLE IF EXISTS `url`;
@@ -170,21 +161,10 @@ CREATE TABLE `url` (
   `nombreClick` int(10) unsigned NOT NULL default '0',
   `valider` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`numUrl`)
-) TYPE=MyISAM AUTO_INCREMENT=231 ;
+) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=2 ;
 
 #
 # Contenu de la table `url`
 #
 
-INSERT INTO `url` (`numUrl`, `numDossierParent`, `dossierSouhaite`, `nom`, `url`, `note`, `langue`, `nombreClick`, `valider`) VALUES (3, 13, '', 'MySQL.com', 'http://www.mysql.com', '0.00', 'us', 18, 1),
-(4, 3, '', 'Developpez.com | Club d\'entraide des développeurs francophones', 'http://www.developpez.com/', '0.00', 'fr', 0, 1),
-(5, 3, '', 'ProgX', 'http://www.progx.org/', '0.00', 'fr', 0, 1),
-(6, 3, '', 'The Artima Developer Community', 'http://www.artima.com/index.jsp', '0.00', 'us', 0, 1),
-(7, 3, '', 'Da Linux French Page', 'http://linuxfr.org/', '0.00', 'fr', 0, 1),
-(8, 3, '', 'LinuxFrench.net', 'http://www.linuxfrench.net/', '0.00', 'fr', 0, 1),
-(13, 9, '', 'GAIA!!!', 'http://www.go-gaia.com/', '0.00', 'fr', 0, 1),
-(14, 2, '', 'UML en français', 'http://uml.free.fr/', '0.00', 'fr', 0, 1),
-(12, 3, '', 'Site des Éditions O\'Reilly', 'http://www.oreilly.fr/', '0.00', 'fr', 0, 1),
-(15, 2, '', 'Modeling Web Applications with UML', 'http://www.conallen.org/whitepapers/webapps/ModelingWebApplications.htm', '0.00', 'us', 0, 1),
-(16, 11, '', 'OVH.com', 'http://www.ovh.com/', '0.00', 'fr', 0, 1),
-(226, 105, 'fabien', 'sdfsdf', 'dsfdvccv cxvxcv', '0.00', 'fr', 0, 1);
+INSERT INTO `url` (`numUrl`, `numDossierParent`, `dossierSouhaite`, `nom`, `url`, `note`, `langue`, `nombreClick`, `valider`) VALUES (1, 3, '', 'Da Linux French Page', 'http://www.linuxfr.org', '0.00', 'fr', 0, 1);

@@ -159,5 +159,13 @@ class Url extends Document{
         $resultat = mysql_query($sql);
         deconnexion();                
     }
+    
+    function modifier()
+    {
+        $sql = "UPDATE url SET nom = '".$this->nom."', url = '".$this->url."', langue = '".$this->langue."' WHERE numUrl=".$this->numUrl;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+    }
 }
 ?>

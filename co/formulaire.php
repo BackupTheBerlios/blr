@@ -33,6 +33,10 @@ haut();
 <h1><a href="index.php">Books &amp; Links Repository</a></h1>
 <?php
 
+/**
+ *  Ajout d'un livre
+ */
+
 if ($_GET['action'] == 'ajoutLivre')
 {
     $dossier = new Dossier($_GET['numDossier']);
@@ -91,6 +95,11 @@ if ($_GET['action'] == 'ajoutLivre')
         </p>
     </form>
     <?php
+
+/**
+ *  Ajout d'un lien
+ */
+
 } elseif ($_GET['action'] == 'ajoutLien')
 {
     $dossier = new Dossier($_GET['numDossier']);
@@ -118,7 +127,44 @@ if ($_GET['action'] == 'ajoutLivre')
             <input type="submit" name="Submit" value="Ajouter le lien" />
         </p>
     </form>
-    <?php    
+    <?php
+    
+/**
+ *  Modification d'un lien
+ */
+ 
+}elseif ($_GET['action'] == 'modifLien')
+{
+    $dossier = new Dossier($_GET['numDossier']);
+    echo '<div class="arborescence">Ajout d\'un lien dans <strong>'.$dossier->arborescence().'</strong></div>';
+    echo '<div class="dossier">';
+    if (isset($_SESSION['login'])) {
+        $lien = new Url($_GET['numUrl']);
+        ?>
+        <form id="form1" method="post" action="modifier.php?objet=lien">
+            <p>
+                Nom *<br />
+                <input type="text" name="nom" value="<?php echo $lien->nom ?>" size="60"/><br />
+                Url<br />
+                <input type="text" name="url" value="<?php echo $lien->url ?>" size="60" /><br />
+                Langue *<br />
+                <select name="langue">
+                  <option value="fr" <?php if ($lien->langue == 'fr') echo 'selected="selected"'; ?>>Fran&ccedil;ais</option>
+                  <option value="us" <?php if ($lien->langue == 'us') echo 'selected="selected"'; ?>>Anglais</option>
+                </select><br />
+                <input type="hidden" name="numUrl" value="<?php echo $_GET['numUrl'];?>" />
+                <input type="submit" name="Submit" value="Modifier le lien" />
+            </p>
+        </form>
+        <?php  
+    } else {
+        echo htmlentities('Attention, cette page est réservé aux administrateurs.');
+    }
+    
+/**
+ *  Ajout d'un dossier
+ */
+ 
 } elseif ($_GET['action'] == 'ajoutDossier')
 {
     if (isset($_SESSION['login'])) {
@@ -132,6 +178,31 @@ if ($_GET['action'] == 'ajoutLivre')
                 <input type="text" name="nom" size="60"/><br />
                 <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
                 <input type="submit" name="Submit" value="Ajouter le dossier" />
+            </p>
+        </form>
+        <?php
+    } else {
+        echo '<div class="dossier">';
+        echo htmlentities('Attention, cette page est réservé aux administrateurs.');
+    }
+
+/**
+ *  Modification d'un dossier
+ */
+         
+} elseif ($_GET['action'] == 'modifDossier')
+{
+    if (isset($_SESSION['login'])) {
+        $dossier = new Dossier($_GET['numDossier']);
+        echo '<div class="arborescence">Ajout d\'un dossier dans <strong>'.$dossier->arborescence().'</strong></div>';
+        echo '<div class="dossier">';
+        ?>
+        <form id="form1" method="post" action="modifier.php?objet=dossier">
+            <p>
+                Nom *<br />
+                <input type="text" name="nom" value="<?php echo $dossier->nom; ?>" size="60"/><br />
+                <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
+                <input type="submit" name="Submit" value="Modifier le nom du dossier" />
             </p>
         </form>
         <?php

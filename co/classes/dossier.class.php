@@ -379,5 +379,13 @@ class Dossier {
         // On selectionne l'id des sous-dossiers
         // on supprime le contenu avec un id de sous dossier
     }
+    
+    function modifier()
+    {
+        $sql = "UPDATE dossier SET nom = '".$this->nom."' WHERE numDossier='".$this->numDossier."'";
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+    }
 }
 ?>

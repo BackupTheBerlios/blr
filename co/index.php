@@ -61,6 +61,7 @@ while ($dossier->dossierSuivantExiste()) {
     // Gestion des options administrateurs
         if (isset($_SESSION['login'])) {
             echo '<a href="supprimer.php?objet=dossier&amp;numDossier='.$dossierCourant->numDossier.'" onClick="return validerSuppression()"><img src="icones/supprimer.png" alt="icone pour la suppression"/></a>';
+            echo '<a href="formulaire.php?action=modifDossier&amp;numDossier='.$dossierCourant->numDossier.'" ><img src="icones/modifier.png" alt="icone pour la suppression"/></a> ';
         }
     
     echo  '<img src="icones/dossier.png" alt="icone d\'un dossier"/> <a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$dossierCourant->numDossier.'">'.htmlentities($dossierCourant->nom).'</a><br />'."\n";
