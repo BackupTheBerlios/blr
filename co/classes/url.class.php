@@ -35,6 +35,8 @@ class Url extends Document{
     */
     var $numUrl;
     var $numDossierParent;
+    var $listeCommentaire;
+    var $cleCouranteCommentaire = 0;
     
     function Url($numUrl = 0) {
         $this->numUrl = $numUrl;
@@ -60,6 +62,52 @@ class Url extends Document{
             $this->nombreClick      = $resultat['nombreClick'];
             $this->numDossierParent = $resultat['numDossierParent'];
         }
+    }
+    
+    function listeCommentaire() {
+        $sql = "SELECT numCommentaire FROM commentaire WHERE numUrl = ".$this->numUrl;
+        
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+        
+        // On parcours le résultat et on crée les dossier correspondant
+        while ($commentaire = mysql_fetch_array($resultat)) {
+            $this->listeCommentaire[] = new Commentaire($commentaire['numCommentaire']);
+        }
+    }
+
+    function commentaireSuivantExiste() {
+        $nbCommentaire = count($this->listeCommentaire);
+        if ($this->cleCouranteCommentaire == $nbCommentaire) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    function commentaireSuivant() {
+        
+        $commentaire = $this->listeCommentaire[$this->cleCouranteCommentaire];
+        $this->cleCouranteCommentaire++;
+        return $commentaire;
+    }
+    
+    function ajouterCommentaire($commentaire) {
+        $sql_ajout  =  "INSERT INTO `commentaire` (`numUrl` , `auteur` , `commentaire` , `note` ) ".
+                        "VALUES ('".$this->numUrl."', '".$commentaire->auteur."', '".$commentaire->commentaire."', '".$commentaire->note."')";
+        connexion();
+        mysql_query($sql_ajout);
+        deconnexion();     
+    }
+    
+    function nombreCommentaire() {
+        $sql = "SELECT COUNT(*) AS nbCo FROM commentaire WHERE numUrl = ".$this->numUrl;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+        $nbCommentaire = mysql_fetch_array($resultat);
+        return $nbCommentaire['nbCo'];
     }
     
     function supprimer() {

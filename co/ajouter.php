@@ -26,22 +26,30 @@ include_once('classes/url.class.php');
 include_once('classes/dossier.class.php');
 include_once('classes/livre.class.php');
 include_once('classes/commentaire.class.php');
-include_once('classes/url.class.php');
 
 if ($_GET['objet'] == 'commentaire') {
     $numLivre       = $_POST['numLivre'];
+    $numUrl         = $_POST['numUrl'];
     
     $commentaire = new Commentaire();
     $commentaire->auteur        = $_POST['nom']; 
     $commentaire->commentaire   = $_POST['commentaire'];
     $commentaire->note          = $_POST['note'];
     
-    $livre = new Livre($numLivre);
-    $livre->ajouterCommentaire($commentaire);
     
-    header("Location: http://".$_SERVER['HTTP_HOST']
+    if ($numLivre != '') {
+        $livre = new Livre($numLivre);
+        $livre->ajouterCommentaire($commentaire);
+        header("Location: http://".$_SERVER['HTTP_HOST']
                      .dirname($_SERVER['PHP_SELF'])
                      ."/livre.php?numLivre=".$numLivre);
+    } elseif ($numUrl != '') {
+        $lien = new Url($numUrl);
+        $lien->ajouterCommentaire($commentaire);
+        header("Location: http://".$_SERVER['HTTP_HOST']
+                     .dirname($_SERVER['PHP_SELF'])
+                     ."/lien.php?numUrl=".$numUrl);
+    }
 } elseif ($_GET['objet'] == 'livre') {
     $livre = new Livre();
     $livre->langue          = $_POST['langue'];

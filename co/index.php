@@ -62,7 +62,7 @@ while ($dossier->urlSuivanteExiste()) {
     // Affichage du lien
     echo    '<img src="icones/lien.png" /> '.
             '<img src="icones/pays/'.$urlCourante->langue.'.png" />'.
-            ' <a href="'.$urlCourante->url.'">'.htmlentities($urlCourante->nom).'</a> '.
+            ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> - '.$urlCourante->nombreCommentaire().' commentaire(s)'.
             $urlCourante->note.' '.$urlCourante->nombreClick.'<br />'."\n";
 }
 
