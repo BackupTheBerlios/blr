@@ -16,5 +16,4 @@ Système qui verifie s'il y a des liens morts.
     * Gestion & Administration *
     ----------------------------
 
-Les éléments ajoutés par un administrateur n'ont pas besoin d'etre validé.
 "Configurabilité" de l'application (definir si tout le monde peut ajouter du contenu, exporter la base, etc...)

@@ -228,25 +228,41 @@ class Dossier {
         return $arbo;
     }
     
-    function ajouterLivre($livre)
+    function ajouterLivre($livre, $valider = false)
     {
-        $sql =  "INSERT INTO livre (numDossierParent, langue, titre, sousTitre, auteur, ".
+        if ($valider == true) {
+            $sql =  "INSERT INTO livre (numDossierParent, langue, titre, sousTitre, auteur, ".
                 "editeur, prix, pages, numEdition, isbn, dateParution, collection, ".
-                "niveau, poids, format, urlLivre, resume) VALUES ('".$this->numDossier."', ".
+                "niveau, poids, format, urlLivre, resume, valider) VALUES ('".$this->numDossier."', ".
                 "'".$livre->langue."', '".$livre->titre."', '".$livre->sousTitre."', '".$livre->auteur."', ".
                 "'".$livre->editeur."', '".$livre->prix."', '".$livre->pages."', '".$livre->numEdition."', ".
                 "'".$livre->isbn."', '".$livre->dateParution."', '".$livre->collection."', '".$livre->niveau."', ".
-                "'".$livre->poids."', '".$livre->format."', '".$livre->urlLivre."', '".$livre->resume."')";
+                "'".$livre->poids."', '".$livre->format."', '".$livre->urlLivre."', '".$livre->resume."', '1')";
+        } else {
+            $sql =  "INSERT INTO livre (numDossierParent, langue, titre, sousTitre, auteur, ".
+                "editeur, prix, pages, numEdition, isbn, dateParution, collection, ".
+                "niveau, poids, format, urlLivre, resume, valider) VALUES ('".$this->numDossier."', ".
+                "'".$livre->langue."', '".$livre->titre."', '".$livre->sousTitre."', '".$livre->auteur."', ".
+                "'".$livre->editeur."', '".$livre->prix."', '".$livre->pages."', '".$livre->numEdition."', ".
+                "'".$livre->isbn."', '".$livre->dateParution."', '".$livre->collection."', '".$livre->niveau."', ".
+                "'".$livre->poids."', '".$livre->format."', '".$livre->urlLivre."', '".$livre->resume."', '0')";
+        }
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
     }
     
-    function ajouterLien($lien, $valider = 0)
+    function ajouterLien($lien, $valider = false)
     {
-        $sql =  "INSERT INTO url (numDossierParent, langue, nom, url, valider)".
-                " VALUES ('".$this->numDossier."', '".$lien->langue.
-                "', '".$lien->nom."', '".$lien->url."', ".$valider.")";
+        if ($valider == true) {
+            $sql =  "INSERT INTO url (numDossierParent, dossierSouhaite, langue, nom, url, valider)".
+                    " VALUES ('".$this->numDossier."', '".$lien->dossierSouhaite."','".$lien->langue.
+                    "', '".$lien->nom."', '".$lien->url."', '1')";
+        } else {
+                $sql =  "INSERT INTO url (numDossierParent, dossierSouhaite, langue, nom, url, valider)".
+                " VALUES ('".$this->numDossier."', '".$lien->dossierSouhaite."','".$lien->langue.
+                "', '".$lien->nom."', '".$lien->url."', '0')";
+        }
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();

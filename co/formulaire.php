@@ -39,7 +39,7 @@ if ($_GET['action'] == 'ajoutLivre')
     echo '<div class="arborescence">Ajout d\'un livre dans  <strong>'.$dossier->arborescence().'</strong></div>';
     echo '<div class="dossier">';
     ?>
-    <form name="form1" id="form1" method="post" action="ajouter.php?objet=livre">
+    <form id="form1" method="post" action="ajouter.php?objet=livre">
         <p>
             Titre *<br />
             <input type="text" name="titre" /><br />
@@ -91,12 +91,14 @@ if ($_GET['action'] == 'ajoutLivre')
     echo '<div class="arborescence">Ajout d\'un lien dans <strong>'.$dossier->arborescence().'</strong></div>';
     echo '<div class="dossier">';
     ?>
-    <form name="form1" id="form1" method="post" action="ajouter.php?objet=lien">
-        <p>
+    <form id="form1" method="post" action="ajouter.php?objet=lien">
+        <p class="nouveau">
             Vous pouvez ajouter ce lien dans le dossier courant, ou proposez un sous-dossier qui sera plus pertinent.<br />
-            <input type="radio" name="dossier" value="courant" /> Dossier courant
+            <input type="radio" name="dossier" value="courant" checked="checked" /> Dossier courant
             ou <input type="radio" name="dossier" value="nouveau" /> sous-dossier :
-            <input type="texte" name="nouveauDossier" /><hr />
+            <input type="text" name="nouveauDossier" />
+        </p>
+        <p>
             Nom *<br />
             <input type="text" name="nom" size="60"/><br />
             Url<br />
@@ -118,7 +120,7 @@ if ($_GET['action'] == 'ajoutLivre')
         echo '<div class="arborescence">Ajout d\'un dossier dans <strong>'.$dossier->arborescence().'</strong></div>';
         echo '<div class="dossier">';
         ?>
-        <form name="form1" id="form1" method="post" action="ajouter.php?objet=dossier">
+        <form id="form1" method="post" action="ajouter.php?objet=dossier">
             <p>
                 Nom *<br />
                 <input type="text" name="nom" size="60"/><br />

@@ -70,7 +70,7 @@ if ($_GET['objet'] == 'commentaire') {
     $livre->resume          = $_POST['resume'];
     
     $dossierParent = new Dossier($_POST['numDossier']);
-    $dossierParent->ajouterLivre($livre);
+    $dossierParent->ajouterLivre($livre, isset($_SESSION['login']));
     
     header("Location: http://".$_SERVER['HTTP_HOST']
                      .dirname($_SERVER['PHP_SELF'])
@@ -82,8 +82,13 @@ if ($_GET['objet'] == 'commentaire') {
     $url->nom               = $_POST['nom'];
     $url->url               = $_POST['url'];
     
-    $dossierParent = new Dossier($_POST['numDossier']);
-    $dossierParent->ajouterLien($url);
+    if ($_POST['dossier'] == 'courant') {
+        $dossierParent = new Dossier($_POST['numDossier']);
+        $dossierParent->ajouterLien($url, isset($_SESSION['login']));
+    } elseif ($_POST['dossier'] == 'nouveau') {
+        
+    
+    }
     
     header("Location: http://".$_SERVER['HTTP_HOST']
                      .dirname($_SERVER['PHP_SELF'])

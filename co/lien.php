@@ -39,7 +39,7 @@ if (isset($_GET['numUrl'])) {
     echo '<h2>'.htmlentities($lien->nom).'</h2>';
     
     echo '<div class="dossier">';
-    echo '<strong>Url</strong> : <a href="'.$lien->url.'">'.$lien->url.'</a><br />';
+    echo '<strong>Url</strong> : <a href="'.$lien->url.'" hreflang="'.$lien->langue.'" >'.$lien->url.'</a><br />';
     echo '</div>';
     
     // Déplacement du lien

@@ -36,6 +36,7 @@ class Url extends Document{
     */
     var $numUrl;
     var $numDossierParent;
+    var $dossierSouhaite;
     var $listeCommentaire;
     var $cleCouranteCommentaire = 0;
     
@@ -44,7 +45,7 @@ class Url extends Document{
         if ($numUrl != 0) {
             // Requete SQL permettant de récupérer les infos concernant
             // le dossier courant (sauf pour le dossier racine)
-            $sql_list   =  "SELECT nom, url, note, langue, nombreClick, numDossierParent, valider ".
+            $sql_list   =  "SELECT nom, url, note, langue, nombreClick, numDossierParent, valider, dossierSouhaite ".
                         "FROM `url` ".
                         "WHERE numUrl = ".$numUrl;
                                       
@@ -63,6 +64,7 @@ class Url extends Document{
             $this->nombreClick      = $resultat['nombreClick'];
             $this->numDossierParent = $resultat['numDossierParent'];
             $this->valider          = $resultat['valider'];
+            $this->dossierSouhaite  = $resultat['dossierSouhaite'];
         }
     }
     
