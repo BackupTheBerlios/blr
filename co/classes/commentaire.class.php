@@ -31,17 +31,21 @@ class Commentaire{
     var $commentaire;
     var $note;
     
+    var $numLivre;
+    var $numUrl;
+    
     /*
     *   Variables concerant le fonctionnement de la classe    
     */
     var $numCommentaire;
     
-    function Commentaire($numCommentaire = 0) {
+    function Commentaire($numCommentaire = 0)
+    {
         $this->numCommentaire = $numCommentaire;
         if ($numCommentaire != 0) {
             // Requete SQL permettant de récupérer les infos concernant
             // le dossier courant (sauf pour le dossier racine)
-            $sql_list = "SELECT auteur, note, commentaire ".
+            $sql_list = "SELECT auteur, note, commentaire, numUrl, numLivre ".
                         "FROM `commentaire` ".
                         "WHERE numCommentaire = ".$numCommentaire;
                                       
@@ -57,9 +61,17 @@ class Commentaire{
             $this->commentaire  = $resultat['commentaire'];
             $this->note         = $resultat['note'];
             
+            $this->numLivre     = $resultat['numLivre'];
+            $this->numUrl       = $resultat['numUrl'];
+            
         }
     }
     
-    
+    function supprimer() {
+        $sql = "DELETE FROM commentaire WHERE numCommentaire = ".$this->numCommentaire;
+        connexion();
+        mysql_query($sql);
+        deconnexion();    
+    }
 }
 ?>

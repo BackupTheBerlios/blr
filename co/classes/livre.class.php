@@ -49,6 +49,7 @@ class Livre extends Document{
     var $format;
     var $urlLivre;
     var $resume;
+    var $valider;
     
     /*
     *   Variables concerant le fonctionnement de la classe    
@@ -68,7 +69,7 @@ class Livre extends Document{
                         " , `prix` , `pages` , `numEdition` , ".
                         "`lienCommercial` , `isbn` , `dateParution` , ".
                         "`collection` , `niveau` , `poids` , `format` ".
-                        ", `urlLivre` , `resume`, `numDossierParent` ".
+                        ", `urlLivre` , `resume`, `numDossierParent`, `valider` ".
                         "FROM `livre` ".
                         "WHERE numLivre = ".$numLivre;
                                        
@@ -101,6 +102,7 @@ class Livre extends Document{
             $this->urlLivre         = $resultat['urlLivre'];
             $this->resume           = $resultat['resume'];
             $this->numDossierParent = $resultat['numDossierParent'];
+            $this->valider          = $resultat['valider'];
         }
     }
     
@@ -166,6 +168,14 @@ class Livre extends Document{
         deconnexion();
         $note = mysql_fetch_array($resultat);
         return $note['moyenne'];
+    }
+    function valider() {
+        $sql =  "UPDATE livre ".
+                "SET valider = 1 ".
+                "WHERE numLivre = ".$this->numLivre;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
     }
 }
 ?>

@@ -40,12 +40,12 @@ $_SESSION['login'] = $login;
 
 if (($password == $info['password']))
 	{
-	header("Location: index.php");
+	header("Location: administration.php");
 	}
 else
 	{
 	unset($_SESSION['login']);
-	header("Location: index.php");
+	header("Location: administration.php");
 	}
 
 ?>

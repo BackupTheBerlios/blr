@@ -30,20 +30,33 @@ include_once('classes/divers.php');
 haut();
 // Un peu d'HTML
 ?>
-<h1>Books & Links Repository</h1>
+<a href="index.php"><h1>Books & Links Repository</h1></a>
 <?php
 echo '<div class="dossier">';
 
 if (isset($_SESSION['login'])) {
-    echo 'loggué<br />';
-    echo '<a href="logout.php">Quitter le mode administrateur</a>';
+    echo '<h2>Tableau de bord</h2>';
+    
+    echo '<h3>Modération :</h3>';
+    echo '<strong>'.nbLivreAValider().'</strong> livre(s) et ';
+    echo '<strong>'.nbLienAValider().'</strong> lien(s) à valider. ';
+    
+    echo '<h3>Importation / Exportation</h3>';
+    
+    echo '<h3>Statistiques</h3>';
+    
+    echo '<a href="index.php">Sommaire</a> | <a href="logout.php">Quitter le mode administrateur</a>';
 } else {
     ?>
-    <form method="post" action="login.php" name="login">
-        <input type="text" name="login" />
-        <input type="password" name="password" />
-        <input type="submit" value="S'identifer" name="logger" />
-    </form>
+    <p>
+        <form method="post" action="login.php" name="login">
+            Nom d'utilisateur :<br />
+            <input type="text" name="login" /><br />
+            Mot de passe :<br />
+            <input type="password" name="password" /><br />
+            <input type="submit" value="S'identifer" name="logger" />
+        </form>
+    </p>
     <?php
 }
 

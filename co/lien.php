@@ -19,6 +19,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+session_start();
+
 // Inclusion des fichiers nécessaires
 include_once('classes/dossier.class.php');
 include_once('classes/url.class.php');
@@ -29,7 +31,7 @@ haut();
 
 // Un peu d'HTML
 ?>
-<h1>Books & Links Repository</h1>
+<a href="index.php"><h1>Books & Links Repository</h1></a>
 <?php
 // On récupère le numero du dossier et le crée l'objet correspondant
 if (isset($_GET['numUrl'])) {
@@ -41,6 +43,15 @@ if (isset($_GET['numUrl'])) {
     echo '</div>';
     
     echo '<a href="index.php?numDossier='.$lien->numDossierParent.'">Retour au dossier</a>';
+    
+    // On affiche les liens pour la validation, si l'url n'a pas
+    // encore été validé.
+    if ($lien->valider == 0) {
+        echo '<div class="validation">';
+        echo '<p><a href="moderation.php?objet=lien&numUrl='.$lien->numUrl.'"><img src="icones/valider.png" />Valider</a>';
+        echo ' | <a href="supprimer.php?objet=lien&numUrl='.$lien->numUrl.'"><img src="icones/supprimer.png" />Supprimer</a></p>';
+        echo '</div>';
+    }
     
     // Affichage des commentaires
     echo '<div class="commentaire">';
@@ -63,7 +74,7 @@ if (isset($_GET['numUrl'])) {
             La note &agrave; donner au livre.<br />
             <select name="note">
               <?php
-              for ($i = 0; $i <= 20; $i++) {
+              for ($i = 20; $i >= 0; $i--) {
                   echo '<option value="'.$i.'">'.$i.'</option>';
               }
               ?>
@@ -73,7 +84,16 @@ if (isset($_GET['numUrl'])) {
         </p>
     </form>
     <?php
-    echo '</div>';  
+    echo '</div>';
+    
+    // Lien pour passer et quitter le mode Administrateur
+    echo '<div class="ajout">';
+    if (isset($_SESSION['login'])) {
+        echo '<a href="administration.php">Administration</a> | <a href="logout.php">Quitter le mode <strong>Administrateur</strong></a>';
+    } else {
+        echo '<a href="administration.php">Passer en mode <strong>Administrateur</strong></a>';
+    }
+    echo '</div>';
 } else {
     echo "Aucun lien selectionné";
 }

@@ -30,7 +30,7 @@ include_once('classes/divers.php');
 haut();
 // Un peu d'HTML
 ?>
-<h1>Books & Links Repository</h1>
+<a href="index.php"><h1>Books & Links Repository</h1></a>
 <?php
 // On récupère le numero du dossier et le crée l'objet correspondant
 if (isset($_GET['numDossier'])) {
@@ -54,22 +54,46 @@ $dossier->listeUrl();
 while ($dossier->urlSuivanteExiste()) {
     $urlCourante = $dossier->urlSuivante();
     
-    // Gestion des options administrateurs
-    if (isset($_SESSION['login'])) {
-        echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" /></a>';
+    if ($urlCourante->valider == 1)
+    {
+        // Gestion des options administrateurs
+        if (isset($_SESSION['login'])) {
+            echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" /></a>';
+        }
+        
+        // Affichage du lien
+        echo    '<img src="icones/lien.png" /> '.
+                '<img src="icones/pays/'.$urlCourante->langue.'.png" />'.
+                ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> '.
+                '- '.$urlCourante->nombreCommentaire().' commentaire(s)';
+        
+        //Affichage de la note si elle existe (cad au moins 1 commentaire)
+        if ($urlCourante->note() != '') {
+            echo ' | Note :'.$urlCourante->note();
+        }
+        echo    '<br />'."\n";
     }
-    
-    // Affichage du lien
-    echo    '<img src="icones/lien.png" /> '.
-            '<img src="icones/pays/'.$urlCourante->langue.'.png" />'.
-            ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> '.
-            '- '.$urlCourante->nombreCommentaire().' commentaire(s)';
-    
-    //Affichage de la note si elle existe (cad au moins 1 commentaire)
-    if ($urlCourante->note() != '') {
-        echo ' | Note :'.$urlCourante->note();
+    // Sinon si il n'a pas été valider, on n'affiche que si l'utilisateur est admin
+    elseif ($urlCourante->valider == 0 && isset($_SESSION['login']))
+    {
+        // Gestion des options administrateurs
+        if (isset($_SESSION['login'])) {
+            echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" /></a>';
+        }
+        
+        // Affichage du lien
+        echo    '<img src="icones/lien.png" /> '.
+                '<img src="icones/pays/'.$urlCourante->langue.'.png" />'.
+                ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> '.
+                '- '.$urlCourante->nombreCommentaire().' commentaire(s)';
+        
+        //Affichage de la note si elle existe (cad au moins 1 commentaire)
+        if ($urlCourante->note() != '') {
+            echo ' | Note :'.$urlCourante->note();
+        }
+        echo '<strong>'.htmlentities('[À valider]').'</strong>';
+        echo    '<br />'."\n";
     }
-    echo    '<br />'."\n";
 }
 
 // Liste des livres
@@ -77,22 +101,46 @@ $dossier->listeLivre();
 while ($dossier->livreSuivantExiste()) {
     $livreCourant = $dossier->livreSuivant();
     
-    // Gestion des options administrateurs
-    if (isset($_SESSION['login'])) {
-        echo '<a href="supprimer.php?objet=livre&numLivre='.$livreCourant->numLivre.'"><img src="icones/supprimer.png" /></a>';
+    // On affiche si le livre à été valider
+    if ($livreCourant->valider == 1)
+    {
+        // Gestion des options administrateurs
+        if (isset($_SESSION['login'])) {
+            echo '<a href="supprimer.php?objet=livre&numLivre='.$livreCourant->numLivre.'"><img src="icones/supprimer.png" /></a>';
+        }
+        
+        // Affichage du livre
+        echo    '<img src="icones/livre.png" /> '.
+                '<img src="icones/pays/'.$livreCourant->langue.'.png" /> '.
+                '<a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> '.
+                '- '.$livreCourant->nombreCommentaire().' commentaire(s) ';
+        
+        //Affichage de la note si elle existe (cad au moins 1 commentaire)
+        if ($livreCourant->note() != '') {
+            echo ' | Note :'.$livreCourant->note();
+        }
+        echo    '<br />'."\n";
     }
-    
-    // Affichage du livre
-    echo    '<img src="icones/livre.png" /> '.
-            '<img src="icones/pays/'.$livreCourant->langue.'.png" /> '.
-            '<a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> '.
-            '- '.$livreCourant->nombreCommentaire().' commentaire(s) ';
-    
-    //Affichage de la note si elle existe (cad au moins 1 commentaire)
-    if ($livreCourant->note() != '') {
-        echo ' | Note :'.$livreCourant->note();
+    // Sinon si il n'a pas été valider, on n'affiche que si l'utilisateur est admin
+    elseif ($livreCourant->valider == 0 && isset($_SESSION['login']))
+    {
+        // Gestion des options administrateurs
+        if (isset($_SESSION['login'])) {
+            echo '<a href="supprimer.php?objet=livre&numLivre='.$livreCourant->numLivre.'"><img src="icones/supprimer.png" /></a>';
+        }
+        // Affichage du livre
+        echo    '<img src="icones/livre.png" /> '.
+                '<img src="icones/pays/'.$livreCourant->langue.'.png" /> '.
+                '<a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> '.
+                '- '.$livreCourant->nombreCommentaire().' commentaire(s) ';
+        
+        //Affichage de la note si elle existe (cad au moins 1 commentaire)
+        if ($livreCourant->note() != '') {
+            echo ' | Note :'.$livreCourant->note();
+        }
+        echo '<strong>'.htmlentities('[À valider]').'</strong>';
+        echo    '<br />'."\n";    
     }
-    echo    '<br />'."\n";
 }
 
 // Affichage de la scgnification des icones
@@ -110,7 +158,7 @@ echo '<a href="formulaire.php?action=ajoutLivre&numDossier='.$dossier->numDossie
 
 // Lien pour passer et quitter le mode Administrateur
 if (isset($_SESSION['login'])) {
-    echo '<br /><a href="logout.php">Quitter le mode <strong>Administrateur</strong></a>';
+    echo '<br /><a href="administration.php">Administration</a> | <a href="logout.php">Quitter le mode <strong>Administrateur</strong></a>';
 } else {
     echo '<br /><a href="administration.php">Passer en mode <strong>Administrateur</strong></a>';
 }

@@ -29,6 +29,7 @@ class Url extends Document{
     */
     var $nom;
     var $url;
+    var $valider;
     
     /*
     *   Variables concerant le fonctionnement de la classe    
@@ -43,7 +44,7 @@ class Url extends Document{
         if ($numUrl != 0) {
             // Requete SQL permettant de récupérer les infos concernant
             // le dossier courant (sauf pour le dossier racine)
-            $sql_list   =  "SELECT nom, url, note, langue, nombreClick, numDossierParent ".
+            $sql_list   =  "SELECT nom, url, note, langue, nombreClick, numDossierParent, valider ".
                         "FROM `url` ".
                         "WHERE numUrl = ".$numUrl;
                                       
@@ -61,6 +62,7 @@ class Url extends Document{
             $this->langue           = $resultat['langue'];
             $this->nombreClick      = $resultat['nombreClick'];
             $this->numDossierParent = $resultat['numDossierParent'];
+            $this->valider          = $resultat['valider'];
         }
     }
     
@@ -126,6 +128,15 @@ class Url extends Document{
         deconnexion();
         $note = mysql_fetch_array($resultat);
         return $note['moyenne'];
+    }
+    
+    function valider() {
+        $sql =  "UPDATE url ".
+                "SET valider = 1 ".
+                "WHERE numUrl = ".$this->numUrl;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
     }
 }
 ?>

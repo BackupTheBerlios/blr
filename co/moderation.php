@@ -30,28 +30,28 @@ include_once('classes/url.class.php');
 
 if ($_SESSION['login']) {
     if ($_GET['objet'] == 'commentaire') {
-        $commentaire = new Commentaire($_GET['numCommentaire']);
-        $commentaire->supprimer();
-        if (isset($commentaire->numLivre))
-        {
-            header("Location: http://".$_SERVER['HTTP_HOST']
-                             .dirname($_SERVER['PHP_SELF'])
-                             ."/livre.php?numLivre=".$commentaire->numLivre);
-        } elseif (isset($commentaire->numUrle))
-        {
-            header("Location: http://".$_SERVER['HTTP_HOST']
-                             .dirname($_SERVER['PHP_SELF'])
-                             ."/lien.php?numUrl=".$commentaire->numUrl);    
-        } 
+        /*$numLivre       = $_POST['numLivre'];
+        
+        $commentaire = new Commentaire();
+        $commentaire->auteur        = $_POST['nom']; 
+        $commentaire->commentaire   = $_POST['commentaire'];
+        $commentaire->note          = $_POST['note'];
+        
+        $livre = new Livre($numLivre);
+        $livre->ajouterCommentaire($commentaire);
+        
+        header("Location: http://".$_SERVER['HTTP_HOST']
+                         .dirname($_SERVER['PHP_SELF'])
+                         ."/livre.php?numLivre=".$numLivre);*/
     } elseif ($_GET['objet'] == 'livre') {
         $livre = new Livre($_GET['numLivre']);
-        $livre->supprimer();
+        $livre->valider();
         header("Location: http://".$_SERVER['HTTP_HOST']
                          .dirname($_SERVER['PHP_SELF'])
                          ."/index.php?numDossier=".$livre->numDossierParent);
     } elseif ($_GET['objet'] == 'lien') {
         $url = new Url($_GET['numUrl']);
-        $url->supprimer();
+        $url->valider();
         header("Location: http://".$_SERVER['HTTP_HOST']
                          .dirname($_SERVER['PHP_SELF'])
                          ."/index.php?numDossier=".$url->numDossierParent);
