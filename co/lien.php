@@ -63,7 +63,7 @@ if (isset($_GET['numUrl'])) {
     }
     
     echo '<div class="arborescence">';
-    echo '<a href="index.php?numDossier='.$livre->numDossierParent.'">Retour au dossier</a>';
+    echo '<a href="index.php?numDossier='.$lien->numDossierParent.'">Retour au dossier</a>';
     echo '</div>';
     
     // On affiche les liens pour la validation, si l'url n'a pas
