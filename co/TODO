@@ -1,6 +1,15 @@
 TODO :
 ------------------------------------------------------------------------
 
+    * Général *
+    -----------
+    
+    Proposition de dossier lors de l'ajout d'un lien
+    Proposition de dossier lors de l'ajout d'un livre
+    Suppression d'un dossier
+    
+    
+
     * Import / Export *
     -------------------
     
@@ -22,3 +31,21 @@ Système qui verifie s'il y a des liens morts.
     ----------------------
     
 Utilisation de l'attribut hreflang de la balise a (seulement sous Gecko
+
+ROADMAP :
+------------------------------------------------------------------------
+
+v0.1 "The One":
+Mettre en place le site internet (blr.berlios.de)
+Lancer une version 0.1 (avec ou sans l'import/export en xml)
+
+v0.2 "Reloaded":
+import/export XML
+import/export Mozilla
+export PDF
+interface et possibilité d'admin
+
+v0.3 "Revolution" (Release 1.0):
+Refactoring du code / optimisation
+documentation
+système d'install

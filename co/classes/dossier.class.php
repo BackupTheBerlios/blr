@@ -252,20 +252,27 @@ class Dossier {
         deconnexion();
     }
     
-    function ajouterLien($lien, $valider = false)
+    function ajouterLien(&$lien, $admin = false)
     {
-        if ($valider == true) {
+        // Ajout de la part d'un admin
+        if ($admin == true) {
             $sql =  "INSERT INTO url (numDossierParent, dossierSouhaite, langue, nom, url, valider)".
                     " VALUES ('".$this->numDossier."', '".$lien->dossierSouhaite."','".$lien->langue.
                     "', '".$lien->nom."', '".$lien->url."', '1')";
+        
+        // Ajout de la part d'un utilisateur lambda
         } else {
                 $sql =  "INSERT INTO url (numDossierParent, dossierSouhaite, langue, nom, url, valider)".
                 " VALUES ('".$this->numDossier."', '".$lien->dossierSouhaite."','".$lien->langue.
                 "', '".$lien->nom."', '".$lien->url."', '0')";
         }
+        
+        // On effectue la requete SQL
         connexion();
         $resultat = mysql_query($sql);
+        $id = mysql_insert_id();
         deconnexion();
+        $lien->numUrl = $id;
     }
     
     function ajouterDossier($dossier)

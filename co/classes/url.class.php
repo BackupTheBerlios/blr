@@ -150,5 +150,14 @@ class Url extends Document{
         $resultat = mysql_query($sql);
         deconnexion();
     }
+    
+    function dossierSouhaite ($dossierSouhaite) {
+        $sql =  "UPDATE url ".
+                "SET dossierSouhaite = '".$dossierSouhaite."' ".
+                "WHERE numUrl = ".$this->numUrl;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();                
+    }
 }
 ?>

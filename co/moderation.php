@@ -55,6 +55,21 @@ if ($_SESSION['login']) {
         header("Location: http://".$_SERVER['HTTP_HOST']
                          .dirname($_SERVER['PHP_SELF'])
                          ."/index.php?numDossier=".$url->numDossierParent);
+    } elseif ($_GET['objet'] == 'lienSousDossier') {
+        $url = new Url($_GET['numUrl']);
+        $url->valider();
+        
+        // On crée le dossier parent
+        $dossierParent = new Dossier($url->numDossierParent);
+        // On crée l'objet correspondant au dossier proposé
+        $dossierTemp = new Dossier();
+        $dossierTemp->nom = $url->dossierSouhaite;
+        $dossier = new Dossier($dossierParent->ajouterDossier($dossierTemp));
+        $url->deplacerVers($dossier);
+                
+        header("Location: http://".$_SERVER['HTTP_HOST']
+                         .dirname($_SERVER['PHP_SELF'])
+                         ."/index.php?numDossier=".$url->numDossierParent);
     } elseif ($_GET['objet'] == 'dossier') {
         /*$dossier = new Dossier();
         $dossier->nom           = $_POST['nom'];

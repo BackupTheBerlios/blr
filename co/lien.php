@@ -68,10 +68,16 @@ if (isset($_GET['numUrl'])) {
     
     // On affiche les liens pour la validation, si l'url n'a pas
     // encore été validé.
-    if ($lien->valider == 0) {
+    if ($lien->valider == 0 && empty($lien->dossierSouhaite)) {
         echo '<div class="validation">';
-        echo '<p><a href="moderation.php?objet=lien&numUrl='.$lien->numUrl.'"><img src="icones/valider.png" />Valider</a>';
-        echo ' | <a href="supprimer.php?objet=lien&numUrl='.$lien->numUrl.'"><img src="icones/supprimer.png" />Supprimer</a></p>';
+        echo '<p><a href="moderation.php?objet=lien&amp;numUrl='.$lien->numUrl.'"><img src="icones/valider.png" />Valider</a>';
+        echo ' | <a href="supprimer.php?objet=lien&amp;numUrl='.$lien->numUrl.'"><img src="icones/supprimer.png" />Supprimer</a></p>';
+        echo '</div>';
+    } elseif ($lien->valider == 0 && !empty($lien->dossierSouhaite)) {
+        echo '<div class="validation">';
+        echo '<p><a href="moderation.php?objet=lien&amp;numUrl='.$lien->numUrl.'"><img src="icones/valider.png" />Valider dans le dossier courant</a>';
+        echo ' | <a href="moderation.php?objet=lienSousDossier&amp;numUrl='.$lien->numUrl.'"><img src="icones/valider.png" />Valider dans le sous-dossier '.$lien->dossierSouhaite.'</a>';
+        echo ' | <a href="supprimer.php?objet=lien&amp;numUrl='.$lien->numUrl.'"><img src="icones/supprimer.png" />Supprimer</a></p>';
         echo '</div>';
     }
     

@@ -82,12 +82,16 @@ if ($_GET['objet'] == 'commentaire') {
     $url->nom               = $_POST['nom'];
     $url->url               = $_POST['url'];
     
+    // Ajout d'un lien dans le dossier courant
     if ($_POST['dossier'] == 'courant') {
         $dossierParent = new Dossier($_POST['numDossier']);
         $dossierParent->ajouterLien($url, isset($_SESSION['login']));
-    } elseif ($_POST['dossier'] == 'nouveau') {
         
-    
+    // Ajout avec proposition de dossier
+    } elseif ($_POST['dossier'] == 'nouveau') {
+        $dossierParent = new Dossier($_POST['numDossier']);
+        $dossierParent->ajouterLien($url, 0);
+        $url->dossierSouhaite($_POST['nouveauDossier']);    
     }
     
     header("Location: http://".$_SERVER['HTTP_HOST']
