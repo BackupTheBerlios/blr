@@ -131,3 +131,13 @@ label
     float: left;
     width: 150px;
 }
+fieldset
+{
+    border:1px solid black;
+    margin-top: 5px;
+}
+
+legend
+{
+    border:1px solid black;
+}
