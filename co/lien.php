@@ -42,8 +42,9 @@ if (isset($_GET['numUrl'])) {
     echo '<strong>Url</strong> : <a href="'.$lien->url.'" hreflang="'.$lien->langue.'" >'.$lien->url.'</a><br />';
     echo '</div>';
     
-    // Déplacement du lien
-    if (isset($_SESSION['login']))
+    // Déplacement du lien si on est administrateur et que le lien a
+    // déjà été validé.
+    if (isset($_SESSION['login']) && $lien->valider == 1)
     {
         echo '<div class="dossier">';
         $liste = Dossier::listeTousDossier();
@@ -76,7 +77,7 @@ if (isset($_GET['numUrl'])) {
     } elseif ($lien->valider == 0 && !empty($lien->dossierSouhaite)) {
         echo '<div class="validation">';
         echo '<p><a href="moderation.php?objet=lien&amp;numUrl='.$lien->numUrl.'"><img src="icones/valider.png" />Valider dans le dossier courant</a>';
-        echo ' | <a href="moderation.php?objet=lienSousDossier&amp;numUrl='.$lien->numUrl.'"><img src="icones/valider.png" />Valider dans le sous-dossier '.$lien->dossierSouhaite.'</a>';
+        echo ' | <a href="moderation.php?objet=lienSousDossier&amp;numUrl='.$lien->numUrl.'"><img src="icones/valider.png" />Valider dans le sous-dossier <strong>'.$lien->dossierSouhaite.'</strong></a>';
         echo ' | <a href="supprimer.php?objet=lien&amp;numUrl='.$lien->numUrl.'"><img src="icones/supprimer.png" />Supprimer</a></p>';
         echo '</div>';
     }
