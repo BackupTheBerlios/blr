@@ -86,8 +86,13 @@ while ($dossier->livreSuivantExiste()) {
     echo    '<img src="icones/livre.png" /> '.
             '<img src="icones/pays/'.$livreCourant->langue.'.png" /> '.
             '<a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> '.
-            '- '.$livreCourant->nombreCommentaire().' commentaire(s) '.
-            '| Note : '.$livreCourant->note().'<br />'."\n";
+            '- '.$livreCourant->nombreCommentaire().' commentaire(s) ';
+    
+    //Affichage de la note si elle existe (cad au moins 1 commentaire)
+    if ($livreCourant->note() != '') {
+        echo ' | Note :'.$livreCourant->note();
+    }
+    echo    '<br />'."\n";
 }
 
 // Affichage de la scgnification des icones

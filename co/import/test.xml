@@ -1,0 +1,27 @@
+<brl>
+	<dossier nom="nom du dossier">
+		<url>
+			<lien>http://www.x-phuture.com</lien>
+			<titre>Site de xphuture</titre>
+		</url>
+	<dossier>
+	<url>
+		<lien>http://www.x-phuture.com</lien>
+		<titre>Site de xphuture</titre>
+	</url>
+	<livre>
+		<titre></titre>
+		<soustitre></soustitre>
+		<isbn></isbn>
+		<commentaire>
+			<auteur></auteur>
+			<texte></texte>
+			<note></note>
+		</commentaire>
+		<commentaire>
+			<auteur></auteur>
+			<texte></texte>
+			<note></note>
+		</commentaire>
+	</livre>
+</blr>
