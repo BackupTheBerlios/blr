@@ -52,14 +52,20 @@ $fils = $root->first_child();
         $noeud = $noeud->next_sibling();
     }
 }*/
-function listeElementNoeudCourant ($noeud, $iter = 0) {
+function listeElementNoeudCourant ($noeud, $numDossier, $iter = 0) {
     $iter++;
     while($noeud) {
         switch ($noeud->node_name()) {
             case "dossier":
-                echo $iter."-"."dossier ".$noeud->get_attribute('nom')."\n";
+                $nom = $noeud->get_attribute('nom');
+                echo $iter."-"."dossier ".$nom."\n";
+                $dossierParent = new Dossier($numDossier);
+                $dossier = new Dossier();
+                $dossier->nom = $nom;
+                $numNouveauDossier = $dossierParent->ajouterDossier($dossier);
+                
                 $fils = $noeud->first_child();
-                echo listeElementNoeudCourant($fils, $iter);
+                echo listeElementNoeudCourant($fils, $numNouveauDossier, $iter);
                 break;
             case "lien":
                 $langue = $noeud->get_attribute('langue');
@@ -90,5 +96,5 @@ function listeElementNoeudCourant ($noeud, $iter = 0) {
 function ajout ($noeud) {
     echo $noeud->node_name();    
 }
-echo listeElementNoeudCourant($fils);
+echo listeElementNoeudCourant($fils, 16);
 ?>

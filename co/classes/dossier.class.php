@@ -258,7 +258,9 @@ class Dossier {
                 " VALUES ('".$this->numDossier."', '".$dossier->nom."')";
         connexion();
         $resultat = mysql_query($sql);
+        $id = mysql_insert_id();
         deconnexion();
+        return $id;        
     }
     
     function listeTousDossier($dossierExclu = null)
