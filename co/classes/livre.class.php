@@ -72,7 +72,7 @@ class Livre extends Document{
                         "`lienCommercial` , `isbn` , `dateParution` , ".
                         "`collection` , `niveau` , `poids` , `format` ".
                         ", `urlLivre` , `resume`, `numDossierParent`, `valider`, `dossierSouhaite` ".
-                        "FROM `livre` ".
+                        "FROM `".BLR_PREFIX.BLR_TABLE_LIVRE."` ".
                         "WHERE numLivre = ".$numLivre;
                                        
             // On se connecte et on effectue la requete
@@ -110,7 +110,7 @@ class Livre extends Document{
     }
     
     function listeCommentaire() {
-        $sql = "SELECT numCommentaire FROM commentaire WHERE numLivre = ".$this->numLivre;
+        $sql = "SELECT numCommentaire FROM ".BLR_PREFIX.BLR_TABLE_COMMENTAIRE." WHERE numLivre = ".$this->numLivre;
         
         connexion();
         $resultat = mysql_query($sql);
@@ -139,7 +139,7 @@ class Livre extends Document{
     }
     
     function ajouterCommentaire($commentaire) {
-        $sql_ajout  =  "INSERT INTO `commentaire` (`numLivre` , `auteur` , `commentaire` , `note` ) ".
+        $sql_ajout  =  "INSERT INTO `".BLR_PREFIX.BLR_TABLE_COMMENTAIRE."` (`numLivre` , `auteur` , `commentaire` , `note` ) ".
                         "VALUES ('".$this->numLivre."', '".$commentaire->auteur."', '".$commentaire->commentaire."', '".$commentaire->note."')";
         connexion();
         mysql_query($sql_ajout);
@@ -147,7 +147,7 @@ class Livre extends Document{
     }
     
     function nombreCommentaire() {
-        $sql = "SELECT COUNT(*) AS nbCo FROM commentaire WHERE numLivre = ".$this->numLivre;
+        $sql = "SELECT COUNT(*) AS nbCo FROM ".BLR_PREFIX.BLR_TABLE_COMMENTAIRE." WHERE numLivre = ".$this->numLivre;
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
@@ -156,7 +156,7 @@ class Livre extends Document{
     }
 
     function supprimer() {
-        $sql = "DELETE FROM livre WHERE numLivre = ".$this->numLivre;
+        $sql = "DELETE FROM ".BLR_PREFIX.BLR_TABLE_LIVRE." WHERE numLivre = ".$this->numLivre;
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
@@ -164,7 +164,7 @@ class Livre extends Document{
     
     function note() {
         $sql =  "SELECT ROUND((SUM( note ) / COUNT( note )),1) AS moyenne ".
-                "FROM `commentaire` ".
+                "FROM `".BLR_PREFIX.BLR_TABLE_COMMENTAIRE."` ".
                 "WHERE numLivre = ".$this->numLivre;
         connexion();
         $resultat = mysql_query($sql);
@@ -173,7 +173,7 @@ class Livre extends Document{
         return $note['moyenne'];
     }
     function valider() {
-        $sql =  "UPDATE livre ".
+        $sql =  "UPDATE ".BLR_PREFIX.BLR_TABLE_LIVRE." ".
                 "SET valider = 1 ".
                 "WHERE numLivre = ".$this->numLivre;
         connexion();
@@ -183,7 +183,7 @@ class Livre extends Document{
     
     function deplacerVers($dossier)
     {
-        $sql =  "UPDATE livre ".
+        $sql =  "UPDATE ".BLR_PREFIX.BLR_TABLE_LIVRE." ".
                 "SET numDossierParent  = ".$dossier->numDossier." ".
                 "WHERE numLivre = ".$this->numLivre;
         connexion();
@@ -192,7 +192,7 @@ class Livre extends Document{
     }
     
     function dossierSouhaite($dossierSouhaite) {
-        $sql =  "UPDATE livre ".
+        $sql =  "UPDATE ".BLR_PREFIX.BLR_TABLE_LIVRE." ".
                 "SET dossierSouhaite = '".$dossierSouhaite."' ".
                 "WHERE numLivre = ".$this->numLivre;
         connexion();
@@ -202,7 +202,7 @@ class Livre extends Document{
     
     function modifier()
     {
-        $sql = "UPDATE livre
+        $sql = "UPDATE ".BLR_PREFIX.BLR_TABLE_LIVRE."
                 SET    `titre`          = '".$this->titre."',
                        `sousTitre`      = '".$this->sousTitre."',
                        `auteur`         = '".$this->auteur."',

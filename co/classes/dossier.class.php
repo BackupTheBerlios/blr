@@ -49,7 +49,7 @@ class Dossier {
             // Requete SQL permettant de récupérer les infos concernant
             // le dossier courant (sauf pour le dossier racine)
             $sql =  "SELECT nom, numDossierParent ".
-                    "FROM dossier ".
+                    "FROM ".BLR_PREFIX.BLR_TABLE_DOSSIER." ".
                     "WHERE numDossier = '".$numDossier."'";
                                        
             // On se connecte et on effectue la requete
@@ -70,7 +70,7 @@ class Dossier {
         // Requete SQL permettant de récupérer les infos concernant
         // le dossier courant (sauf pour le dossier racine)
         $sql =  "SELECT `numDossier`".
-                "FROM `dossier`".
+                "FROM `".BLR_PREFIX.BLR_TABLE_DOSSIER."`".
                 "WHERE `numDossierParent` = ".$this->numDossier.
                 " ORDER BY nom ASC";
         
@@ -113,7 +113,7 @@ class Dossier {
         // Requete SQL permettant de récupérer les infos concernant
         // le dossier courant (sauf pour le dossier racine)
         $sql =  "SELECT `numUrl`".
-                "FROM `url`".
+                "FROM `".BLR_PREFIX.BLR_TABLE_URL."`".
                 "WHERE `numDossierParent` = ".$this->numDossier.
                 " ORDER BY nom ASC";
         
@@ -151,7 +151,7 @@ class Dossier {
         // Requete SQL permettant de récupérer les infos concernant
         // le dossier courant (sauf pour le dossier racine)
         $sql =  "SELECT `numLivre`".
-                "FROM `livre`".
+                "FROM `".BLR_PREFIX.BLR_TABLE_LIVRE."`".
                 "WHERE `numDossierParent` = ".$this->numDossier.
                 " ORDER BY titre ASC";
         
@@ -189,7 +189,7 @@ class Dossier {
         $arbo = "";
         $numDossierParent = $this->numDossier;
         do {
-            $sql = "SELECT nom, numDossierParent, numDossier FROM dossier WHERE numDossier = ".$numDossierParent;
+            $sql = "SELECT nom, numDossierParent, numDossier FROM ".BLR_PREFIX.BLR_TABLE_DOSSIER." WHERE numDossier = ".$numDossierParent;
             connexion();
             $resultat = mysql_query($sql);
             deconnexion();
@@ -211,7 +211,7 @@ class Dossier {
         $arbo = "";
         $numDossierParent = $this->numDossier;
         do {
-            $sql = "SELECT nom, numDossierParent, numDossier FROM dossier WHERE numDossier = ".$numDossierParent;
+            $sql = "SELECT nom, numDossierParent, numDossier FROM ".BLR_PREFIX.BLR_TABLE_DOSSIER." WHERE numDossier = ".$numDossierParent;
             connexion();
             $resultat = mysql_query($sql);
             deconnexion();
@@ -231,7 +231,7 @@ class Dossier {
     function ajouterLivre(&$livre, $valider = false)
     {
         if ($valider == true) {
-            $sql =  "INSERT INTO livre (numDossierParent, langue, titre, sousTitre, auteur, ".
+            $sql =  "INSERT INTO ".BLR_PREFIX.BLR_TABLE_LIVRE." (numDossierParent, langue, titre, sousTitre, auteur, ".
                 "editeur, prix, pages, numEdition, isbn, dateParution, collection, ".
                 "niveau, poids, format, urlLivre, resume, valider) VALUES ('".$this->numDossier."', ".
                 "'".$livre->langue."', '".$livre->titre."', '".$livre->sousTitre."', '".$livre->auteur."', ".
@@ -239,7 +239,7 @@ class Dossier {
                 "'".$livre->isbn."', '".$livre->dateParution."', '".$livre->collection."', '".$livre->niveau."', ".
                 "'".$livre->poids."', '".$livre->format."', '".$livre->urlLivre."', '".$livre->resume."', '1')";
         } else {
-            $sql =  "INSERT INTO livre (numDossierParent, langue, titre, sousTitre, auteur, ".
+            $sql =  "INSERT INTO l".BLR_PREFIX.BLR_TABLE_LIVRE." (numDossierParent, langue, titre, sousTitre, auteur, ".
                 "editeur, prix, pages, numEdition, isbn, dateParution, collection, ".
                 "niveau, poids, format, urlLivre, resume, valider) VALUES ('".$this->numDossier."', ".
                 "'".$livre->langue."', '".$livre->titre."', '".$livre->sousTitre."', '".$livre->auteur."', ".
@@ -258,13 +258,13 @@ class Dossier {
     {
         // Ajout de la part d'un admin
         if ($admin == true) {
-            $sql =  "INSERT INTO url (numDossierParent, dossierSouhaite, langue, nom, url, valider)".
+            $sql =  "INSERT INTO ".BLR_PREFIX.BLR_TABLE_URL." (numDossierParent, dossierSouhaite, langue, nom, url, valider)".
                     " VALUES ('".$this->numDossier."', '".$lien->dossierSouhaite."','".$lien->langue.
                     "', '".$lien->nom."', '".$lien->url."', '1')";
         
         // Ajout de la part d'un utilisateur lambda
         } else {
-                $sql =  "INSERT INTO url (numDossierParent, dossierSouhaite, langue, nom, url, valider)".
+                $sql =  "INSERT INTO ".BLR_PREFIX.BLR_TABLE_URL." (numDossierParent, dossierSouhaite, langue, nom, url, valider)".
                 " VALUES ('".$this->numDossier."', '".$lien->dossierSouhaite."','".$lien->langue.
                 "', '".$lien->nom."', '".$lien->url."', '0')";
         }
@@ -279,7 +279,7 @@ class Dossier {
     
     function ajouterDossier($dossier)
     {
-        $sql =  "INSERT INTO dossier (numDossierParent, nom)".
+        $sql =  "INSERT INTO ".BLR_PREFIX.BLR_TABLE_DOSSIER." (numDossierParent, nom)".
                 " VALUES ('".$this->numDossier."', '".$dossier->nom."')";
         connexion();
         $resultat = mysql_query($sql);
@@ -290,28 +290,10 @@ class Dossier {
     
     function listeTousDossier($dossierExclu = null)
     {
-        /*$liste = array();
-        $sql = "SELECT numDossier FROM dossier";
-        connexion();
-        $resultat = mysql_query($sql);
-        deconnexion();
-        while ($numDossier = mysql_fetch_array($resultat)) {
-            if ($dossierExclu != null) {
-                if ($numDossier['numDossier'] != $dossierExclu) {
-                    $dossier = new Dossier($numDossier['numDossier']);
-                    $liste[$dossier->numDossier] = $dossier->arborescenceSansLien();
-                }
-            } else {
-                $dossier = new Dossier($numDossier['numDossier']);
-                $liste[$dossier->numDossier] = $dossier->arborescenceSansLien();
-            }
-        }
-        asort($liste);
-        return $liste;*/
         $liste = array();
         
         // On sélectionne tous les dossiers
-        $sql = "SELECT numDossier FROM dossier";
+        $sql = "SELECT numDossier FROM ".BLR_PREFIX.BLR_TABLE_DOSSIER."";
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
@@ -342,7 +324,7 @@ class Dossier {
     
     function deplacerVers($dossier)
     {
-        $sql =  "UPDATE dossier ".
+        $sql =  "UPDATE ".BLR_PREFIX.BLR_TABLE_DOSSIER." ".
                 "SET numDossierParent  = ".$dossier->numDossier." ".
                 "WHERE numDossier = ".$this->numDossier;
         connexion();
@@ -352,10 +334,10 @@ class Dossier {
     
     function supprimer()
     {
-        $sql_select = "SELECT numDossier FROM dossier WHERE numDossierParent = '".$this->numDossier."'";
-        $sql_suppr_dossier = "DELETE FROM dossier WHERE numDossier = '".$this->numDossier."'";
-        $sql_suppr_livre = "DELETE FROM livre WHERE numDossierParent = '".$this->numDossier."'";
-        $sql_suppr_url = "DELETE FROM url WHERE numDossierParent = '".$this->numDossier."'";
+        $sql_select = "SELECT numDossier FROM ".BLR_PREFIX.BLR_TABLE_DOSSIER." WHERE numDossierParent = '".$this->numDossier."'";
+        $sql_suppr_dossier = "DELETE FROM ".BLR_PREFIX.BLR_TABLE_DOSSIER." WHERE numDossier = '".$this->numDossier."'";
+        $sql_suppr_livre = "DELETE FROM ".BLR_PREFIX.BLR_TABLE_LIVRE." WHERE numDossierParent = '".$this->numDossier."'";
+        $sql_suppr_url = "DELETE FROM ".BLR_PREFIX.BLR_TABLE_URL." WHERE numDossierParent = '".$this->numDossier."'";
         connexion();
         mysql_query($sql_suppr_dossier);
         mysql_query($sql_suppr_url);
@@ -382,7 +364,7 @@ class Dossier {
     
     function modifier()
     {
-        $sql = "UPDATE dossier SET nom = '".$this->nom."' WHERE numDossier='".$this->numDossier."'";
+        $sql = "UPDATE ".BLR_PREFIX.BLR_TABLE_DOSSIER." SET nom = '".$this->nom."' WHERE numDossier='".$this->numDossier."'";
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();

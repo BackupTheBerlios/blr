@@ -46,7 +46,7 @@ class Url extends Document{
             // Requete SQL permettant de récupérer les infos concernant
             // le dossier courant (sauf pour le dossier racine)
             $sql_list   =  "SELECT nom, url, note, langue, nombreClick, numDossierParent, valider, dossierSouhaite ".
-                        "FROM `url` ".
+                        "FROM `".BLR_PREFIX.BLR_TABLE_URL."` ".
                         "WHERE numUrl = ".$numUrl;
                                       
             // On se connecte et on effectue la requete
@@ -69,7 +69,7 @@ class Url extends Document{
     }
     
     function listeCommentaire() {
-        $sql = "SELECT numCommentaire FROM commentaire WHERE numUrl = ".$this->numUrl;
+        $sql = "SELECT numCommentaire FROM ".BLR_PREFIX.BLR_TABLE_COMMENTAIRE." WHERE numUrl = ".$this->numUrl;
         
         connexion();
         $resultat = mysql_query($sql);
@@ -98,7 +98,7 @@ class Url extends Document{
     }
     
     function ajouterCommentaire($commentaire) {
-        $sql_ajout  =  "INSERT INTO `commentaire` (`numUrl` , `auteur` , `commentaire` , `note` ) ".
+        $sql_ajout  =  "INSERT INTO `".BLR_PREFIX.BLR_TABLE_COMMENTAIRE."` (`numUrl` , `auteur` , `commentaire` , `note` ) ".
                         "VALUES ('".$this->numUrl."', '".$commentaire->auteur."', '".$commentaire->commentaire."', '".$commentaire->note."')";
         connexion();
         mysql_query($sql_ajout);
@@ -106,7 +106,7 @@ class Url extends Document{
     }
     
     function nombreCommentaire() {
-        $sql = "SELECT COUNT(*) AS nbCo FROM commentaire WHERE numUrl = ".$this->numUrl;
+        $sql = "SELECT COUNT(*) AS nbCo FROM ".BLR_PREFIX.BLR_TABLE_COMMENTAIRE." WHERE numUrl = ".$this->numUrl;
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
@@ -115,7 +115,7 @@ class Url extends Document{
     }
     
     function supprimer() {
-        $sql = "DELETE FROM url WHERE numUrl = ".$this->numUrl;
+        $sql = "DELETE FROM ".BLR_PREFIX.BLR_TABLE_URL." WHERE numUrl = ".$this->numUrl;
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
@@ -123,7 +123,7 @@ class Url extends Document{
     
     function note() {
         $sql =  "SELECT ROUND((SUM( note ) / COUNT( note )),1) AS moyenne ".
-                "FROM `commentaire` ".
+                "FROM `".BLR_PREFIX.BLR_TABLE_COMMENTAIRE."` ".
                 "WHERE numUrl = ".$this->numUrl;
         connexion();
         $resultat = mysql_query($sql);
@@ -133,7 +133,7 @@ class Url extends Document{
     }
     
     function valider() {
-        $sql =  "UPDATE url ".
+        $sql =  "UPDATE ".BLR_PREFIX.BLR_TABLE_URL." ".
                 "SET valider = 1 ".
                 "WHERE numUrl = ".$this->numUrl;
         connexion();
@@ -143,7 +143,7 @@ class Url extends Document{
     
     function deplacerVers($dossier)
     {
-        $sql =  "UPDATE url ".
+        $sql =  "UPDATE ".BLR_PREFIX.BLR_TABLE_URL." ".
                 "SET numDossierParent  = ".$dossier->numDossier." ".
                 "WHERE numUrl = ".$this->numUrl;
         connexion();
@@ -152,7 +152,7 @@ class Url extends Document{
     }
     
     function dossierSouhaite ($dossierSouhaite) {
-        $sql =  "UPDATE url ".
+        $sql =  "UPDATE ".BLR_PREFIX.BLR_TABLE_URL." ".
                 "SET dossierSouhaite = '".$dossierSouhaite."' ".
                 "WHERE numUrl = ".$this->numUrl;
         connexion();
@@ -162,7 +162,7 @@ class Url extends Document{
     
     function modifier()
     {
-        $sql = "UPDATE url SET nom = '".$this->nom."', url = '".$this->url."', langue = '".$this->langue."' WHERE numUrl=".$this->numUrl;
+        $sql = "UPDATE ".BLR_PREFIX.BLR_TABLE_URL." SET nom = '".$this->nom."', url = '".$this->url."', langue = '".$this->langue."' WHERE numUrl=".$this->numUrl;
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();

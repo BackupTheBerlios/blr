@@ -19,13 +19,15 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+require_once('conf.inc.php');
+
 function connexion()
 {
-	$serveur  = "localhost";
-	$login    = "root";
-	$password = "";
+	$serveur  = BLR_SERVER;
+	$login    = BLR_LOGIN;
+	$password = BLR_PASSWORD;
 
-	$base     = "blr";
+	$base     = BLR_BASE;
 	
 	$erreur   = "";
 

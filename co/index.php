@@ -21,7 +21,7 @@
 
 session_start();
 
-define('DOSSIER_RACINE', 3);
+define('DOSSIER_RACINE', 1);
 
 // Inclusion des fichiers nécessaires
 include_once('classes/dossier.class.php');

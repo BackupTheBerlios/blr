@@ -41,7 +41,7 @@ function bas() {
 
 function nbLivreAValider()
 {
-    $sql = "SELECT COUNT(*) AS nblivre FROM livre WHERE valider = 0";
+    $sql = "SELECT COUNT(*) AS nblivre FROM ".BLR_PREFIX.BLR_TABLE_LIVRE." WHERE valider = 0";
     connexion();
     $resultat = mysql_query($sql);
     deconnexion();
@@ -51,7 +51,7 @@ function nbLivreAValider()
 
 function nbLienAValider()
 {
-    $sql = "SELECT COUNT(*) AS nblien FROM url WHERE valider = 0";
+    $sql = "SELECT COUNT(*) AS nblien FROM ".BLR_PREFIX.BLR_TABLE_URL." WHERE valider = 0";
     connexion();
     $resultat = mysql_query($sql);
     deconnexion();

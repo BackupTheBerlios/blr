@@ -180,7 +180,7 @@ function expo($numdossier)
 }
 function estParent($dossier)
 {
-    $sql = 'SELECT COUNT(*) AS ok FROM dossier WHERE numDossierParent = '.$dossier;
+    $sql = 'SELECT COUNT(*) AS ok FROM ".BLR_PREFIX.BLR_TABLE_DOSSIER." WHERE numDossierParent = '.$dossier;
     connexion();
     $resultat = mysql_query($sql);
     deconnexion();
