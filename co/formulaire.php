@@ -32,9 +32,12 @@ haut();
 ?>
 <h1><a href="index.php">Books &amp; Links Repository</a></h1>
 <?php
-echo '<div class="dossier">';
+
 if ($_GET['action'] == 'ajoutLivre')
 {
+    $dossier = new Dossier($_GET['numDossier']);
+    echo '<div class="arborescence">Ajout d\'un livre dans  <strong>'.$dossier->arborescence().'</strong></div>';
+    echo '<div class="dossier">';
     ?>
     <form name="form1" id="form1" method="post" action="ajouter.php?objet=livre">
         <p>
@@ -84,6 +87,9 @@ if ($_GET['action'] == 'ajoutLivre')
     <?php
 } elseif ($_GET['action'] == 'ajoutLien')
 {
+    $dossier = new Dossier($_GET['numDossier']);
+    echo '<div class="arborescence">Ajout d\'un lien dans <strong>'.$dossier->arborescence().'</strong></div>';
+    echo '<div class="dossier">';
     ?>
     <form name="form1" id="form1" method="post" action="ajouter.php?objet=lien">
         <p>
@@ -103,6 +109,9 @@ if ($_GET['action'] == 'ajoutLivre')
     <?php    
 } elseif ($_GET['action'] == 'ajoutDossier')
 {
+    $dossier = new Dossier($_GET['numDossier']);
+    echo '<div class="arborescence">Ajout d\'un dossier dans <strong>'.$dossier->arborescence().'</strong></div>';
+    echo '<div class="dossier">';
     ?>
     <form name="form1" id="form1" method="post" action="ajouter.php?objet=dossier">
         <p>

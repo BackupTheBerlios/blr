@@ -1,8 +1,14 @@
 <?php
 include_once('db.php');
 
+function getmicrotime(){ 
+    list($usec, $sec) = explode(" ",microtime()); 
+    return ((float)$usec + (float)$sec); 
+    }
+
 function haut()
 {
+    $_SESSION['temps'] = getmicrotime();
     echo '<?xml version="1.0" encoding="iso-8859-15"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -15,8 +21,14 @@ function haut()
 }
 
 function bas() {
+    $diff = getmicrotime()-$_SESSION['temps'];
     ?>
-    <div class="copyright"><a href="http://blr.berlios.de">Books &amp; Links Repository</a> | &copy; 2004 Fabien SCHWOB | Script sous licence GNU GPL.</div>
+    <div class="copyright">
+        <a href="http://blr.berlios.de">Books &amp; Links Repository</a>
+        | &copy; 2004 Fabien SCHWOB<br />
+        Script sous licence GNU GPL.
+        |  Page générée en <?php echo number_format($diff, 4, ',', ' ')."s"; ?>
+    </div>
       </body>
 </html>
 <?php

@@ -73,10 +73,13 @@ while ($dossier->urlSuivanteExiste()) {
         }
         
         // Affichage du lien
-        echo    '<img src="icones/lien.png" alt="icone d\'un lien"/> '.
+        echo    '<a href="'.$urlCourante->url.'"><img src="icones/lien.png" alt="icone d\'un lien"/></a> '.
                 '<img src="icones/pays/'.$urlCourante->langue.'.png" alt="icone d\'un drapeau"/>'.
-                ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> '.
-                '- '.$urlCourante->nombreCommentaire().' commentaire(s)';
+                ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> ';
+        $nombreDeCommentaire = $urlCourante->nombreCommentaire();
+        if ($nombreDeCommentaire > 0) {
+            echo    '- '.$nombreDeCommentaire.' commentaire(s)';
+        }
         
         //Affichage de la note si elle existe (cad au moins 1 commentaire)
         if ($urlCourante->note() != '') {

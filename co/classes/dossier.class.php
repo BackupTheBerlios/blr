@@ -184,7 +184,7 @@ class Dossier {
         return $livre;
     }
     
-    function arborescence()
+    function arborescence($separateur = '/')
     {
         $arbo = "";
         $numDossierParent = $this->numDossier;
@@ -201,12 +201,12 @@ class Dossier {
             $numDossier = $doss['numDossier'];
             
             // On construit l'arborescence
-            $arbo = '/'.'<a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$numDossier.'">'.$nom.'</a>'.$arbo;
+            $arbo = $separateur.'<a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$numDossier.'">'.$nom.'</a>'.$arbo;
         } while ($nom != "..");
         return $arbo;
     }
     
-    function arborescenceSansLien()
+    function arborescenceSansLien($separateur = '>')
     {
         $arbo = "";
         $numDossierParent = $this->numDossier;
@@ -223,7 +223,7 @@ class Dossier {
             $numDossier = $doss['numDossier'];
             
             // On construit l'arborescence
-            $arbo = ' &gt; '.''.$nom.''.$arbo;
+            $arbo = ' '.htmlentities($separateur).' '.''.$nom.''.$arbo;
         } while ($nom != "..");
         return $arbo;
     }
