@@ -37,7 +37,7 @@ if ($_SESSION['login']) {
             header("Location: http://".$_SERVER['HTTP_HOST']
                              .dirname($_SERVER['PHP_SELF'])
                              ."/livre.php?numLivre=".$commentaire->numLivre);
-        } elseif (isset($commentaire->numUrle))
+        } elseif (isset($commentaire->numUrl))
         {
             header("Location: http://".$_SERVER['HTTP_HOST']
                              .dirname($_SERVER['PHP_SELF'])

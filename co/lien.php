@@ -59,6 +59,12 @@ if (isset($_GET['numUrl'])) {
     $lien->listeCommentaire();
     while ($lien->commentaireSuivantExiste()) {
         $commentaireCourant = $lien->commentaireSuivant();
+        
+        if (isset($_SESSION['login']))
+        {
+            echo '<a href="supprimer.php?objet=commentaire&numCommentaire='.$commentaireCourant->numCommentaire.'"><img src="icones/supprimer.png" /></a> ';    
+        }
+        
         echo  'Auteur : '.$commentaireCourant->auteur.' | Note : '.$commentaireCourant->note.'<br />';
         echo  $commentaireCourant->commentaire.'<br /><br />';
     }
