@@ -116,5 +116,16 @@ class Url extends Document{
         $resultat = mysql_query($sql);
         deconnexion();
     }
+    
+    function note() {
+        $sql =  "SELECT ROUND((SUM( note ) / COUNT( note )),1) AS moyenne ".
+                "FROM `commentaire` ".
+                "WHERE numUrl = ".$this->numUrl;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+        $note = mysql_fetch_array($resultat);
+        return $note['moyenne'];
+    }
 }
 ?>

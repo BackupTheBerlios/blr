@@ -156,5 +156,16 @@ class Livre extends Document{
         $resultat = mysql_query($sql);
         deconnexion();
     }
+    
+    function note() {
+        $sql =  "SELECT ROUND((SUM( note ) / COUNT( note )),1) AS moyenne ".
+                "FROM `commentaire` ".
+                "WHERE numLivre = ".$this->numLivre;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+        $note = mysql_fetch_array($resultat);
+        return $note['moyenne'];
+    }
 }
 ?>

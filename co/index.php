@@ -62,8 +62,14 @@ while ($dossier->urlSuivanteExiste()) {
     // Affichage du lien
     echo    '<img src="icones/lien.png" /> '.
             '<img src="icones/pays/'.$urlCourante->langue.'.png" />'.
-            ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> - '.$urlCourante->nombreCommentaire().' commentaire(s)'.
-            $urlCourante->note.' '.$urlCourante->nombreClick.'<br />'."\n";
+            ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> '.
+            '- '.$urlCourante->nombreCommentaire().' commentaire(s)';
+    
+    //Affichage de la note si elle existe (cad au moins 1 commentaire)
+    if ($urlCourante->note() != '') {
+        echo ' | Note :'.$urlCourante->note();
+    }
+    echo    '<br />'."\n";
 }
 
 // Liste des livres
@@ -77,7 +83,11 @@ while ($dossier->livreSuivantExiste()) {
     }
     
     // Affichage du livre
-    echo  '<img src="icones/livre.png" /> <img src="icones/pays/'.$livreCourant->langue.'.png" /> <a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> - '.$livreCourant->nombreCommentaire().' commentaire(s)<br />'."\n";
+    echo    '<img src="icones/livre.png" /> '.
+            '<img src="icones/pays/'.$livreCourant->langue.'.png" /> '.
+            '<a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> '.
+            '- '.$livreCourant->nombreCommentaire().' commentaire(s) '.
+            '| Note : '.$livreCourant->note().'<br />'."\n";
 }
 
 // Affichage de la scgnification des icones
