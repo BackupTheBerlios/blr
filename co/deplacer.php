@@ -60,15 +60,13 @@ if ($_SESSION['login']) {
                          .dirname($_SERVER['PHP_SELF'])
                          ."/index.php?numDossier=".$dossier->numDossier);
     } elseif ($_POST['objet'] == 'dossier') {
-        /*$dossier = new Dossier();
-        $dossier->nom           = $_POST['nom'];
-        
-        $dossierParent = new Dossier($_POST['numDossier']);
-        $dossierParent->ajouterDossier($dossier);
+        $dossierCible   = new Dossier($_POST['numDossierCible']);
+        $dossier        = new Dossier($_POST['numDossier']);
+        $dossier->deplacerVers($dossierCible);
         
         header("Location: http://".$_SERVER['HTTP_HOST']
                          .dirname($_SERVER['PHP_SELF'])
-                         ."/index.php?numDossier=".$_POST['numDossier']);*/
+                         ."/index.php?numDossier=".$_POST['numDossierCible']);
     }
 
 // Si la personne essayant d'accéder à la page n'est pas connecté en

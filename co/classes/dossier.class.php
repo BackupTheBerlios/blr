@@ -261,19 +261,66 @@ class Dossier {
         deconnexion();
     }
     
-    function listeTousDossier()
+    function listeTousDossier($dossierExclu = null)
     {
-        $liste = array();
+        /*$liste = array();
         $sql = "SELECT numDossier FROM dossier";
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
         while ($numDossier = mysql_fetch_array($resultat)) {
+            if ($dossierExclu != null) {
+                if ($numDossier['numDossier'] != $dossierExclu) {
+                    $dossier = new Dossier($numDossier['numDossier']);
+                    $liste[$dossier->numDossier] = $dossier->arborescenceSansLien();
+                }
+            } else {
+                $dossier = new Dossier($numDossier['numDossier']);
+                $liste[$dossier->numDossier] = $dossier->arborescenceSansLien();
+            }
+        }
+        asort($liste);
+        return $liste;*/
+        $liste = array();
+        
+        // On sélectionne tous les dossiers
+        $sql = "SELECT numDossier FROM dossier";
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+        
+        // On remplit la liste avec l'arborescence de tous les dossiers
+        while ($numDossier = mysql_fetch_array($resultat)) {
             $dossier = new Dossier($numDossier['numDossier']);
             $liste[$dossier->numDossier] = $dossier->arborescenceSansLien();
         }
-        asort($liste);
-        return $liste;
+        
+        // On traite le cas ou il faut exclure un dossier et ses sous dossiers
+        if ($dossierExclu != null) {
+            $listeFinale = array();
+            foreach ($liste as $cle => $ligne) {
+                // Si la ligne 
+                if (!stristr($ligne, $liste[$dossierExclu])) {
+                    $listeFinale[$cle] = $ligne;
+                }
+            }
+            asort($listeFinale);
+            return $listeFinale;
+        } else {
+            asort($liste);
+            return $liste;
+        }
+        
+    }
+    
+    function deplacerVers($dossier)
+    {
+        $sql =  "UPDATE dossier ".
+                "SET numDossierParent  = ".$dossier->numDossier." ".
+                "WHERE numDossier = ".$this->numDossier;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
     }
 }
 ?>

@@ -155,6 +155,26 @@ while ($dossier->livreSuivantExiste()) {
 }
 echo '</div>';
 
+// Déplacement du dossier
+if (isset($_SESSION['login']) && $dossier->numDossier != 3)
+{
+    echo '<div class="dossier">';
+    $liste = Dossier::listeTousDossier($dossier->numDossier);
+    echo '<form name="form1" id="form1" method="post" action="deplacer.php">';
+    echo 'Deplacer le dossier <em>'.$dossier->nom.'</em> dans le dossier : ';
+    echo '<select name="numDossierCible">';
+    
+    foreach ($liste as $cle => $ligne) {
+        echo '<option value="'.$cle.'">'.$ligne.'</option>';    
+    }
+    echo '</select>';
+    echo '<input type="hidden" name="numDossier" value="'.$dossier->numDossier.'" />';
+    echo '<input type="hidden" name="objet" value="dossier" />';
+    echo '<input type="submit" name="go" value="D&eacute;placer" />';
+    echo '</form>';  
+    echo '</div>';
+}
+
 // Affichage de la scgnification des icones
 echo '<div class="legende">';
 echo '<img src="icones/lien.png" alt="icone d\'un lien"/> Liens | <img src="icones/livre.png" /> Livre';
