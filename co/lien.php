@@ -36,7 +36,7 @@ haut();
 // On récupère le numero du dossier et le crée l'objet correspondant
 if (isset($_GET['numUrl'])) {
     $lien = new Url($_GET['numUrl']);
-    echo '<h2>'.$lien->nom.'</h2>';
+    echo '<h2>'.htmlentities($lien->nom).'</h2>';
     
     echo '<div class="dossier">';
     echo '<strong>Url</strong> : <a href="'.$lien->url.'">'.$lien->url.'</a><br />';
@@ -62,7 +62,9 @@ if (isset($_GET['numUrl'])) {
         echo '</div>';
     }
     
-    echo '<a href="index.php?numDossier='.$lien->numDossierParent.'">Retour au dossier</a>';
+    echo '<div class="arborescence">';
+    echo '<a href="index.php?numDossier='.$livre->numDossierParent.'">Retour au dossier</a>';
+    echo '</div>';
     
     // On affiche les liens pour la validation, si l'url n'a pas
     // encore été validé.
@@ -91,7 +93,7 @@ if (isset($_GET['numUrl'])) {
     
     // Formulaire d'insertion de commentaire
     ?>
-    <form name="ajoutCommentaire" id="ajoutCommentaire" method="post" action="ajouter.php?objet=commentaire">
+    <form id="ajoutCommentaire" method="post" action="ajouter.php?objet=commentaire">
         <p>
             Votre nom :<br />
             <input name="nom" type="text" id="nom" /><br />

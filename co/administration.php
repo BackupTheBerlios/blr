@@ -37,9 +37,9 @@ echo '<div class="dossier">';
 if (isset($_SESSION['login'])) {
     echo '<h2>Tableau de bord</h2>';
     
-    echo '<h3>Modération :</h3>';
+    echo '<h3>Mod&eacute;ration :</h3>';
     echo '<strong>'.nbLivreAValider().'</strong> livre(s) et ';
-    echo '<strong>'.nbLienAValider().'</strong> lien(s) à valider. ';
+    echo '<strong>'.nbLienAValider().'</strong> lien(s) &agrave; valider.';
     
     echo '<h3>Importation / Exportation</h3>';
     echo '<a href="io.php?action=export">'.htmlentities('Télécharger l\'intégralité de la base de connaissance.').'</a>';

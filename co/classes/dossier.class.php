@@ -201,7 +201,7 @@ class Dossier {
             $numDossier = $doss['numDossier'];
             
             // On construit l'arborescence
-            $arbo = $separateur.'<a href="index.php?numDossier='.$numDossier.'">'.$nom.'</a>'.$arbo;
+            $arbo = htmlentities($separateur).'<a href="index.php?numDossier='.$numDossier.'">'.htmlentities($nom).'</a>'.$arbo;
         } while ($nom != "..");
         return $arbo;
     }
@@ -223,7 +223,7 @@ class Dossier {
             $numDossier = $doss['numDossier'];
             
             // On construit l'arborescence
-            $arbo = ' '.htmlentities($separateur).' '.''.$nom.''.$arbo;
+            $arbo = ' '.htmlentities($separateur).' '.''.htmlentities($nom).''.$arbo;
         } while ($nom != "..");
         return $arbo;
     }

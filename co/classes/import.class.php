@@ -83,21 +83,9 @@ function listeElementNoeudCourant ($noeud, $numDossier, $iter = 0) {
                     '] '.$url.' '.$nom."\n";
                 break;
             case "livre":
-                echo "livre\n";
+                echo tab($iter)."livre\n";
                 break;
         }
-        //echo ajout($noeud)."\n";
-        /*if ($noeud->has_child_nodes()) {
-            $fils = $noeud->first_child();
-            if ($fils->node_name() == 'dossier') {
-                echo "\t".listeElementNoeudCourant($fils);
-            } else {
-                while($fils) {
-                    echo "\t".$fils->node_name()."\n";
-                    $fils = $fils->next_sibling();
-                }
-            }
-        }*/
         $noeud = $noeud->next_sibling();
     }
 }

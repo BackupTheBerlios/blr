@@ -57,7 +57,7 @@ echo '<div class="dossier">';
 $dossier->listeSousDossier();
 while ($dossier->dossierSuivantExiste()) {
     $dossierCourant = $dossier->sousDossierSuivant();
-    echo  '<img src="icones/dossier.png" alt="icone d\'un dossier"/> <a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$dossierCourant->numDossier.'">'.$dossierCourant->nom.'</a><br />'."\n";
+    echo  '<img src="icones/dossier.png" alt="icone d\'un dossier"/> <a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$dossierCourant->numDossier.'">'.htmlentities($dossierCourant->nom).'</a><br />'."\n";
 }
 
 // Liste des urls
@@ -180,7 +180,7 @@ if (isset($_SESSION['login']) && $dossier->numDossier != 3)
 
 // Affichage de la scgnification des icones
 echo '<div class="legende">';
-echo '<img src="icones/lien.png" alt="icone d\'un lien"/> Liens | <img src="icones/livre.png" /> Livre';
+echo '<img src="icones/lien.png" alt="icone d\'un lien"/> Liens | <img src="icones/livre.png" alt="icone d\'un livre"/> Livre';
 if (isset($_SESSION['login'])) {
     echo ' | <img src="icones/supprimer.png" alt="icone pour supprimer"/> Supprimer';
 }
@@ -188,7 +188,9 @@ echo '</div>';
 
 // Affichage des liens pour ajouter des éléments
 echo '<div class="ajout">';
-echo '<a href="formulaire.php?action=ajoutLivre&numDossier='.$dossier->numDossier.'">Ajouter un livre</a> | <a href="formulaire.php?action=ajoutLien&numDossier='.$dossier->numDossier.'">Ajouter un lien</a> | <a href="formulaire.php?action=ajoutDossier&numDossier='.$dossier->numDossier.'">Ajouter un dossier</a>';
+echo    '<a href="formulaire.php?action=ajoutLivre&amp;numDossier='.$dossier->numDossier.'">Ajouter un livre</a> | '.
+        '<a href="formulaire.php?action=ajoutLien&amp;numDossier='.$dossier->numDossier.'">Ajouter un lien</a> | '.
+        '<a href="formulaire.php?action=ajoutDossier&amp;numDossier='.$dossier->numDossier.'">Ajouter un dossier</a>';
 
 // Lien pour passer et quitter le mode Administrateur
 if (isset($_SESSION['login'])) {
@@ -198,7 +200,7 @@ if (isset($_SESSION['login'])) {
 }
 // Lien pour l'exportation et l'importation en XML
 if (isset($_SESSION['login'])) {
-    echo '<br /><a href="io.php?action=export&numDossier='.$dossier->numDossier.'">'.htmlentities('Exporter depuis ce dossier').'</a>';
+    echo '<br /><a href="io.php?action=export&amp;numDossier='.$dossier->numDossier.'">'.htmlentities('Exporter depuis ce dossier').'</a>';
 }
 echo '</div>';
 bas();

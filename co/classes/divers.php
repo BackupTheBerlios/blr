@@ -9,7 +9,7 @@ function getmicrotime(){
 function haut()
 {
     $_SESSION['temps'] = getmicrotime();
-    echo '<?xml version="1.0" encoding="iso-8859-15"?>
+    echo '<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
@@ -24,10 +24,14 @@ function bas() {
     $diff = getmicrotime()-$_SESSION['temps'];
     ?>
     <div class="copyright">
+        <p>
         <a href="http://blr.berlios.de">Books &amp; Links Repository</a>
         | &copy; 2004 Fabien SCHWOB<br />
         Script sous licence GNU GPL.
-        |  Page générée en <?php echo number_format($diff, 4, ',', ' ')."s"; ?>
+        |  Page g&eacute;n&eacute;r&eacute;e en <?php echo number_format($diff, 4, ',', ' ')."s"; ?><br />
+        <a href="http://jigsaw.w3.org/css-validator/check/referer">Valid CSS!</a> &amp;
+        <a href="http://validator.w3.org/check/referer">Valid XHTML 1.1!</a>
+        </p>
     </div>
       </body>
 </html>

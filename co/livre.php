@@ -37,30 +37,30 @@ haut();
 // On récupère le numero du dossier et le crée l'objet correspondant
 if (isset($_GET['numLivre'])) {
     $livre = new Livre($_GET['numLivre']);
-    echo "<h2>".$livre->titre." - ";
-    echo $livre->sousTitre."</h2>";
+    echo "<h2>".htmlentities($livre->titre)." - ";
+    echo htmlentities($livre->sousTitre)."</h2>";
     
     echo '<div class="dossier">';
-    echo '<strong>Auteur</strong> : '.$livre->auteur.'<br />';
-    echo '<strong>Editeur</strong> : '.$livre->editeur.'<br />';
+    echo '<strong>Auteur</strong> : '.htmlentities($livre->auteur).'<br />';
+    echo '<strong>Editeur</strong> : '.htmlentities($livre->editeur).'<br />';
     
-    echo '<strong>Pages</strong> : '.$livre->pages." - ";
-    echo '<strong>Prix</strong> : '.$livre->prix." €<br />";
-    echo '<strong>ISBN</strong> : '.$livre->isbn."<br />";
+    echo '<strong>Pages</strong> : '.htmlentities($livre->pages)." - ";
+    echo '<strong>Prix</strong> : '.htmlentities($livre->prix)." &euro;<br />";
+    echo '<strong>ISBN</strong> : '.htmlentities($livre->isbn)."<br />";
     
-    echo '<strong>Note</strong> : '.$livre->note."<br />";
-    echo '<strong>Langue</strong> : '.$livre->langue."<br />";
+    echo '<strong>Note</strong> : '.htmlentities($livre->note)."<br />";
+    echo '<strong>Langue</strong> : '.htmlentities($livre->langue)."<br />";
         
-    echo '<strong>Edition</strong> : '.$livre->numEdition."<br />";
-    echo '<strong>Site du livre</strong> : <a href="'.$livre->urlLivre.'">'.$livre->urlLivre.'</a><br />';
+    echo '<strong>Edition</strong> : '.htmlentities($livre->numEdition)."<br />";
+    echo '<strong>Site du livre</strong> : <a href="'.$livre->urlLivre.'">'.htmlentities($livre->urlLivre).'</a><br />';
     
-    echo $livre->lienCommercial."<br />";
+    echo htmlentities($livre->lienCommercial)."<br />";
     
-    echo $livre->dateParution."<br />";
-    echo $livre->collection."<br />";
-    echo $livre->niveau."<br />";
-    echo $livre->poids."<br />";
-    echo $livre->format."<br />";
+    echo htmlentities($livre->dateParution)."<br />";
+    echo htmlentities($livre->collection)."<br />";
+    echo htmlentities($livre->niveau)."<br />";
+    echo htmlentities($livre->poids)."<br />";
+    echo htmlentities($livre->format)."<br />";
     
     echo nl2br(htmlentities($livre->resume));
     echo '</div>';
@@ -85,7 +85,9 @@ if (isset($_GET['numLivre'])) {
         echo '</div>';
     }
     
+    echo '<div class="arborescence">';
     echo '<a href="index.php?numDossier='.$livre->numDossierParent.'">Retour au dossier</a>';
+    echo '</div>';
     
     // On affiche les liens pour la validation, si le livre n'a pas
     // encore été validé.
@@ -108,13 +110,13 @@ if (isset($_GET['numLivre'])) {
             echo '<a href="supprimer.php?objet=commentaire&numCommentaire='.$commentaireCourant->numCommentaire.'"><img src="icones/supprimer.png" /></a> ';    
         }
         
-        echo  'Auteur : '.$commentaireCourant->auteur.' | Note : '.$commentaireCourant->note.'<br />';
-        echo  $commentaireCourant->commentaire.'<br /><br />';
+        echo  'Auteur : '.htmlentities($commentaireCourant->auteur).' | Note : '.htmlentities($commentaireCourant->note).'<br />';
+        echo  htmlentities($commentaireCourant->commentaire).'<br /><br />';
     }
     
     // Formulaire d'insertion de commentaire
     ?>
-    <form name="ajoutCommentaire" id="ajoutCommentaire" method="post" action="ajouter.php?objet=commentaire">
+    <form id="ajoutCommentaire" method="post" action="ajouter.php?objet=commentaire">
         <p>
             Votre nom :<br />
             <input name="nom" type="text" id="nom" /><br />

@@ -1,5 +1,6 @@
 TODO :
 
 Nettoyage et refactoring du code de l'import/export
-Exportation au format de bookmark Mozilla
+Importation/Exportation au format de bookmark Mozilla
 Pouvoir choisir si l'on exporte les commentaires ou non.
+Système qui verifie s'il y a des liens morts.
