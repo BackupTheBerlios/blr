@@ -19,29 +19,22 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-function connexion()
+session_start();
+
+// Inclusion des fichiers nécessaires
+include_once('classes/dossier.class.php');
+include_once('classes/url.class.php');
+include_once('classes/commentaire.class.php');
+include_once('classes/io.class.php');
+include_once('classes/divers.php');
+
+if (isset($_SESSION['login']) && $_GET['action'] == 'export')
 {
-	$serveur  = "localhost";
-	$login    = "root";
-	$password = "";
-
-	$base     = "blr";
-	
-	$erreur   = "";
-
-	if (!mysql_connect($serveur, $login, $password)) {
-		$erreur .= "Erreur lors de la connexion au serveur\n";
-		die();
-	} else {
-		if (!mysql_select_db($base)) {
-			$erreur .= "Erreur lors de la connexion à la base\n";
-		}
-	}
-	return nl2br(htmlentities($erreur));
-}
-
-function deconnexion()
-{
-	mysql_close();
+header("Content-Type: text/xml");
+header("Content-Disposition: attachment; filename=export.xml");
+header('Pragma: no-cache');
+header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+header('Expires: 0');
+echo export(3);
 }
 ?>
