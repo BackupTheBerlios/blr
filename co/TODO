@@ -4,48 +4,48 @@ TODO :
     * Général *
     -----------
     
-    Proposition de dossier lors de l'ajout d'un lien
-    Proposition de dossier lors de l'ajout d'un livre
-    Suppression d'un dossier
     Modification des éléments.
     
 
     * Import / Export *
     -------------------
     
-Nettoyage et refactoring du code de l'import/export
-Importation/Exportation au format de bookmark Mozilla
-Pouvoir choisir si l'on exporte les commentaires ou non.
+    Nettoyage et refactoring du code de l'import/export
+    Importation/Exportation au format de bookmark Mozilla
+    Pouvoir choisir si l'on exporte les commentaires ou non.
 
     * Verification et Optimisation *
     --------------------------------
 
-Système qui verifie s'il y a des liens morts.
+    Système qui verifie s'il y a des liens morts.
 
     * Gestion & Administration *
     ----------------------------
-
-"Configurabilité" de l'application (definir si tout le monde peut ajouter du contenu, exporter la base, etc...)
+    
+    "Configurabilité" de l'application (definir si tout le monde peut ajouter du contenu, exporter la base, etc...)
 
     Sémantique des pages *
     ----------------------
     
-Utilisation de l'attribut hreflang de la balise a (seulement sous Gecko
+    Utilisation de l'attribut hreflang de la balise a (seulement sous Gecko
+    Utilisation de balise du genre title
+    Reflexion sur la sémantique des pages
+    ajouter les acronym (par exemple pour ISBN)
 
 ROADMAP :
 ------------------------------------------------------------------------
 
-v0.1 "The One":
-Mettre en place le site internet (blr.berlios.de)
-Lancer une version 0.1 (avec ou sans l'import/export en xml)
+v0.1 "The Awaking":
+    Mettre en place le site internet (blr.berlios.de)
+    Lancer une version 0.1 (avec ou sans l'import/export en xml)
 
 v0.2 "Reloaded":
-import/export XML
-import/export Mozilla
-export PDF
-interface et possibilité d'admin
+    import/export XML
+    import/export Mozilla
+    export PDF
+    interface et possibilité d'admin
 
 v0.3 "Revolution" (Release 1.0):
-Refactoring du code / optimisation
-documentation
-système d'install
+    Refactoring du code / optimisation
+    documentation
+    système d'install

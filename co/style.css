@@ -124,3 +124,10 @@ a[hreflang]:after {
   color: #cc9933;
   font-weight: smaller;
 }
+
+label
+{
+    display: inline;
+    float: left;
+    width: 150px;
+}

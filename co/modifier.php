@@ -97,7 +97,7 @@ if ($_GET['objet'] == 'commentaire') {
                      .dirname($_SERVER['PHP_SELF'])
                      ."/lien.php?numUrl=".$_POST['numUrl']);
 } elseif ($_GET['objet'] == 'dossier') {
-    $dossier = new Dossier(5);
+    $dossier = new Dossier($_POST['numDossier']);
     $dossier->nom           = $_POST['nom'];
     
     $dossier->modifier();

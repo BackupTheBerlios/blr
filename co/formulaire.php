@@ -44,54 +44,60 @@ if ($_GET['action'] == 'ajoutLivre')
     echo '<div class="dossier">';
     ?>
     <form id="form1" method="post" action="ajouter.php?objet=livre">
-        <p class="nouveau">
+        <p>
+            <fieldset>
+            <legend>S&eacute;l&eacute;ction du dossier</legend>            
             Vous pouvez ajouter ce livre dans le dossier courant, ou proposez un sous-dossier qui sera plus pertinent.<br />
             <input type="radio" name="dossier" value="courant" checked="checked" /> Dossier courant
             ou <input type="radio" name="dossier" value="nouveau" /> sous-dossier :
             <input type="text" name="nouveauDossier" />
+            </fieldset>
         </p>        
         <p>
-            Titre *<br />
+            <fieldset>
+            <legend>Ajout d'un livre</legend>
+            <label>Titre *</label>
             <input type="text" name="titre" /><br />
-            Sous-titre<br />
+            <label>Sous-titre</label>
             <input type="text" name="sousTitre" /><br />
-            Auteur<br />
+            <label>Auteur</label>
             <input type="text" name="auteur" /><br />
-            Editeur<br />
+            <label>Editeur</label>
             <input type="text" name="editeur" /><br />
-            Prix<br />
+            <label>Prix</label>
             <input type="text" name="prix" /><br />
-            Pages<br />
+            <label>Pages</label>
             <input type="text" name="pages" /><br />
-            Edition<br />
+            <label>Edition</label>
             <input type="text" name="numEdition" /><br />
-            Site du livre <br />
+            <label>Site du livre</label>
             <input type="text" name="urlLivre" /><br />
-            ISBN<br />
+            <label>ISBN</label>
             <input type="text" name="isbn" /><br />
-            Date de parution <br />
+            <label>Date de parution</label>
             <input type="text" name="dateParution" /><br />
-            Collection<br />
+            <label>Collection</label>
             <input type="text" name="collection" /><br />
-            Niveau<br />
+            <label>Niveau</label>
             <select name="niveau">
                 <option value="debutant">D&eacute;butant</option>
                 <option value="experimente">Experiment&eacute;</option>
                 <option value="specialiste">Specialiste</option>
             </select><br />
-            Poids<br />
+            <label>Poids</label>
             <input type="text" name="poids" /><br />
-            Format<br />
+            <label>Format</label>
             <input type="text" name="format" /><br />
-            R&eacute;sum&eacute; du livre <br />
-            <textarea name="resume"></textarea><br />
-            Langue *<br />
+            <label>Langue *</label>
             <select name="langue">
               <option value="fr">Fran&ccedil;ais</option>
               <option value="us">Anglais</option>
             </select><br />
+            R&eacute;sum&eacute; du livre <br />
+            <textarea name="resume" cols="72" rows="5"></textarea><br />
             <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
             <input type="submit" name="Submit" value="Ajouter le livre" />
+            </fieldset>
         </p>
     </form>
     <?php
@@ -109,47 +115,50 @@ if ($_GET['action'] == 'ajoutLivre')
     ?>
     <form id="form1" method="post" action="modifier.php?objet=livre">
         <p>
-            Titre *<br />
+            <fieldset>
+            <legend>Ajout d'un livre</legend>
+            <label>Titre *</label>
             <input type="text" name="titre" value="<?php echo htmlentities($livre->titre); ?>" /><br />
-            Sous-titre<br />
+            <label>Sous-titre</label>
             <input type="text" name="sousTitre" value="<?php echo htmlentities($livre->sousTitre); ?>" /><br />
-            Auteur<br />
+            <label>Auteur</label>
             <input type="text" name="auteur" value="<?php echo htmlentities($livre->auteur); ?>" /><br />
-            Editeur<br />
+            <label>Editeur</label>
             <input type="text" name="editeur" value="<?php echo htmlentities($livre->editeur); ?>" /><br />
-            Prix<br />
+            <label>Prix</label>
             <input type="text" name="prix" value="<?php echo htmlentities($livre->prix); ?>" /><br />
-            Pages<br />
+            <label>Pages</label>
             <input type="text" name="pages" value="<?php echo htmlentities($livre->pages); ?>" /><br />
-            Edition<br />
+            <label>Edition</label>
             <input type="text" name="numEdition" value="<?php echo htmlentities($livre->numEdition); ?>" /><br />
-            Site du livre <br />
+            <label>Site du livre</label>
             <input type="text" name="urlLivre" value="<?php echo htmlentities($livre->urlLivre); ?>" /><br />
-            ISBN<br />
+            <label><acronym title="International Standard Book Number">ISBN</acronym></label>
             <input type="text" name="isbn" value="<?php echo htmlentities($livre->isbn); ?>" /><br />
-            Date de parution <br />
+            <label>Date de parution</label>
             <input type="text" name="dateParution" value="<?php echo htmlentities($livre->dateParution); ?>" /><br />
-            Collection<br />
+            <label>Collection</label>
             <input type="text" name="collection" value="<?php echo htmlentities($livre->collection); ?>" /><br />
-            Niveau<br />
+            <label>Niveau</label>
             <select name="niveau">
                 <option value="debutant">D&eacute;butant</option>
                 <option value="experimente">Experiment&eacute;</option>
                 <option value="specialiste">Specialiste</option>
             </select><br />
-            Poids<br />
+            <label>Poids</label>
             <input type="text" name="poids" value="<?php echo htmlentities($livre->poids); ?>" /><br />
-            Format<br />
+            <label>Format</label>
             <input type="text" name="format" value="<?php echo htmlentities($livre->format); ?>" /><br />
             R&eacute;sum&eacute; du livre <br />
             <textarea name="resume" cols="72" rows="7"><?php echo htmlentities($livre->resume); ?></textarea><br />
-            Langue *<br />
+            <label>Langue *</label>
             <select name="langue">
               <option value="fr" <?php if ($livre->langue == 'fr') echo 'selected="selected"'; ?>>Fran&ccedil;ais</option>
               <option value="us" <?php if ($livre->langue == 'us') echo 'selected="selected"'; ?>>Anglais</option>
             </select><br />
             <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
             <input type="submit" name="Submit" value="Ajouter le livre" />
+            </fieldset>
         </p>
     </form>
     <?php
@@ -165,13 +174,18 @@ if ($_GET['action'] == 'ajoutLivre')
     echo '<div class="dossier">';
     ?>
     <form id="form1" method="post" action="ajouter.php?objet=lien">
-        <p class="nouveau">
+        <p>
+            <fieldset>
+            <legend>S&eacute;l&eacute;ction du dossier</legend>            
             Vous pouvez ajouter ce lien dans le dossier courant, ou proposez un sous-dossier qui sera plus pertinent.<br />
             <input type="radio" name="dossier" value="courant" checked="checked" /> Dossier courant
             ou <input type="radio" name="dossier" value="nouveau" /> sous-dossier :
             <input type="text" name="nouveauDossier" />
+            </fieldset>
         </p>
         <p>
+            <fieldset>
+            <legend>Informations sur le lien</legend>            
             Nom *<br />
             <input type="text" name="nom" size="60"/><br />
             Url<br />
@@ -183,6 +197,7 @@ if ($_GET['action'] == 'ajoutLivre')
             </select><br />
             <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
             <input type="submit" name="Submit" value="Ajouter le lien" />
+            </fieldset>
         </p>
     </form>
     <?php
@@ -232,10 +247,13 @@ if ($_GET['action'] == 'ajoutLivre')
         ?>
         <form id="form1" method="post" action="ajouter.php?objet=dossier">
             <p>
-                Nom *<br />
+                <fieldset>
+                <legend>Information sur le nouveau dossier</legend>            
+                <label>Nom *</label>
                 <input type="text" name="nom" size="60"/><br />
                 <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
                 <input type="submit" name="Submit" value="Ajouter le dossier" />
+                </fieldset>
             </p>
         </form>
         <?php
@@ -257,7 +275,9 @@ if ($_GET['action'] == 'ajoutLivre')
         ?>
         <form id="form1" method="post" action="modifier.php?objet=dossier">
             <p>
-                Nom *<br />
+            <fieldset>
+                <legend>Modification du dossier</legend>    
+                <label>Nom *</label>
                 <input type="text" name="nom" value="<?php echo $dossier->nom; ?>" size="60"/><br />
                 <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
                 <input type="submit" name="Submit" value="Modifier le nom du dossier" />
