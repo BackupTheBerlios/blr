@@ -25,7 +25,7 @@ require_once('url.class.php');
 require_once('dossier.class.php');
 require_once('livre.class.php');
 
-header("content-type: text/plain; charset=iso-8859-15");
+header("content-type: text/plain; charset=utf-8");
 
 if(!$dom = domxml_open_file(realpath("test.xml"))) {
   echo "Erreur lors de l'analyse du document\n";
@@ -55,7 +55,7 @@ function listeElementNoeudCourant ($noeud, $numDossier, $iter = 0) {
                 $dossierParent = new Dossier($numDossier);
                 $dossier = new Dossier();
                 $dossier->nom = $nom;
-                //$numNouveauDossier = $dossierParent->ajouterDossier($dossier);
+                $numNouveauDossier = $dossierParent->ajouterDossier($dossier);
                 
                 $fils = $noeud->first_child();
                 listeElementNoeudCourant($fils, $numNouveauDossier, $iter);
@@ -77,7 +77,7 @@ function listeElementNoeudCourant ($noeud, $numDossier, $iter = 0) {
                 $lien->nom      = $nom;
                 
                 // On ajoute le lien
-                //$dossierParent->ajouterLien($lien, 1);
+                $dossierParent->ajouterLien($lien, 1);
                 
                 echo tab($iter).$iter."-"."lien [".$langue.
                     '] '.$url.' '.$nom."\n";
