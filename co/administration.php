@@ -42,7 +42,8 @@ if (isset($_SESSION['login'])) {
     echo '<strong>'.nbLienAValider().'</strong> lien(s) &agrave; valider.';
     
     echo '<h3>Importation / Exportation</h3>';
-    echo '<a href="io.php?action=export">'.htmlentities('Télécharger l\'intégralité de la base de connaissance.').'</a>';
+    //echo '<a href="io.php?action=export">'.htmlentities('Télécharger l\'intégralité de la base de connaissance.').'</a>';
+    echo htmlentities('Télécharger l\'intégralité de la base de connaissance.');
     
     echo '<h3>Statistiques</h3>';
     

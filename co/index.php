@@ -220,9 +220,9 @@ if (isset($_SESSION['login'])) {
     echo '<br /><a href="administration.php">Passer en mode <strong>Administrateur</strong></a>';
 }
 // Lien pour l'exportation et l'importation en XML
-if (isset($_SESSION['login'])) {
+/*if (isset($_SESSION['login'])) {
     echo '<br /><a href="io.php?action=export&amp;numDossier='.$dossier->numDossier.'">'.htmlentities('Exporter depuis ce dossier').'</a>';
-}
+}*/
 echo '</p></div>';
 bas();
 ?>
