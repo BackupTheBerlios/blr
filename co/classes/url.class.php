@@ -34,13 +34,14 @@ class Url extends Document{
     *   Variables concerant le fonctionnement de la classe    
     */
     var $numUrl;
+    var $numDossierParent;
     
     function Url($numUrl = 0) {
         $this->numUrl = $numUrl;
         if ($numUrl != 0) {
             // Requete SQL permettant de récupérer les infos concernant
             // le dossier courant (sauf pour le dossier racine)
-            $sql_list   =  "SELECT nom, url, note, langue, nombreClick ".
+            $sql_list   =  "SELECT nom, url, note, langue, nombreClick, numDossierParent ".
                         "FROM `url` ".
                         "WHERE numUrl = ".$numUrl;
                                       
@@ -52,13 +53,20 @@ class Url extends Document{
             
             // On modifie les attributs de l'objet en fonction des
             // données venant de la BDD
-            $this->nom          = $resultat['nom'];
-            $this->url          = $resultat['url'];
-            $this->note         = $resultat['note'];
-            $this->langue       = $resultat['langue'];
-            $this->nombreClick  = $resultat['nombreClick'];
-            
+            $this->nom              = $resultat['nom'];
+            $this->url              = $resultat['url'];
+            $this->note             = $resultat['note'];
+            $this->langue           = $resultat['langue'];
+            $this->nombreClick      = $resultat['nombreClick'];
+            $this->numDossierParent = $resultat['numDossierParent'];
         }
+    }
+    
+    function supprimer() {
+        $sql = "DELETE FROM url WHERE numUrl = ".$this->numUrl;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
     }
 }
 ?>

@@ -53,21 +53,52 @@ while ($dossier->dossierSuivantExiste()) {
 $dossier->listeUrl();
 while ($dossier->urlSuivanteExiste()) {
     $urlCourante = $dossier->urlSuivante();
-    echo  '<img src="icones/lien.png" /> <img src="icones/pays/'.$urlCourante->langue.'.png" /> <a href="'.$urlCourante->url.'">'.htmlentities($urlCourante->nom).'</a> '.$urlCourante->note.' '.$urlCourante->nombreClick.'<br />'."\n";
+    
+    // Gestion des options administrateurs
+    if (isset($_SESSION['login'])) {
+        echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" /></a>';
+    }
+    
+    // Affichage du lien
+    echo    '<img src="icones/lien.png" /> '.
+            '<img src="icones/pays/'.$urlCourante->langue.'.png" />'.
+            ' <a href="'.$urlCourante->url.'">'.htmlentities($urlCourante->nom).'</a> '.
+            $urlCourante->note.' '.$urlCourante->nombreClick.'<br />'."\n";
 }
 
 // Liste des livres
 $dossier->listeLivre();
 while ($dossier->livreSuivantExiste()) {
     $livreCourant = $dossier->livreSuivant();
+    
+    // Gestion des options administrateurs
+    if (isset($_SESSION['login'])) {
+        echo '<a href="supprimer.php?objet=livre&numLivre='.$livreCourant->numLivre.'"><img src="icones/supprimer.png" /></a>';
+    }
+    
+    // Affichage du livre
     echo  '<img src="icones/livre.png" /> <img src="icones/pays/'.$livreCourant->langue.'.png" /> <a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> - '.$livreCourant->nombreCommentaire().' commentaire(s)<br />'."\n";
 }
+
+// Affichage de la scgnification des icones
 echo '</div>';
 echo '<div class="legende">';
 echo '<img src="icones/lien.png" /> Liens | <img src="icones/livre.png" /> Livre';
+if (isset($_SESSION['login'])) {
+    echo ' | <img src="icones/supprimer.png" /> Supprimer';
+}
 echo '</div>';
+
+// Affichage des liens pour ajouter des éléments
 echo '<div class="ajout">';
 echo '<a href="formulaire.php?action=ajoutLivre&numDossier='.$dossier->numDossier.'">Ajouter un livre</a> | <a href="formulaire.php?action=ajoutLien&numDossier='.$dossier->numDossier.'">Ajouter un lien</a> | <a href="formulaire.php?action=ajoutDossier&numDossier='.$dossier->numDossier.'">Ajouter un dossier</a>';
+
+// Lien pour passer et quitter le mode Administrateur
+if (isset($_SESSION['login'])) {
+    echo '<br /><a href="logout.php">Quitter le mode <strong>Administrateur</strong></a>';
+} else {
+    echo '<br /><a href="administration.php">Passer en mode <strong>Administrateur</strong></a>';
+}
 echo '</div>';
 bas();
 ?>

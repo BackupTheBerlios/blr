@@ -149,5 +149,12 @@ class Livre extends Document{
         $nbCommentaire = mysql_fetch_array($resultat);
         return $nbCommentaire['nbCo'];
     }
+
+    function supprimer() {
+        $sql = "DELETE FROM livre WHERE numLivre = ".$this->numLivre;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();
+    }
 }
 ?>
