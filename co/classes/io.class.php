@@ -24,9 +24,6 @@ require_once('db.php');
 require_once('url.class.php');
 require_once('dossier.class.php');
 require_once('livre.class.php');
-require_once('divers.php');
-
-// TODO: ajout des commentaires
 
 function export($dossier) {
     $export  = '<?xml version="1.0" encoding="iso-8859-15"?>';
@@ -52,7 +49,7 @@ function urlDossier($dossier) {
                     '<url>'.$urlCourante->url.'</url>'.
                     '<nom>'.$urlCourante->nom.'</nom>'.
                     commentaireLien($urlCourante->numUrl).
-                    '</lien>.';
+                    '</lien>';
         }     
     }    
     return $contenu;
