@@ -1,6 +1,20 @@
 TODO :
+------------------------------------------------------------------------
 
+    * Import / Export *
+    -------------------
+    
 Nettoyage et refactoring du code de l'import/export
 Importation/Exportation au format de bookmark Mozilla
 Pouvoir choisir si l'on exporte les commentaires ou non.
+
+    * Verification et Optimisation *
+    --------------------------------
+
 Système qui verifie s'il y a des liens morts.
+
+    * Gestion & Administration *
+    ----------------------------
+
+Les éléments ajoutés par un administrateur n'ont pas besoin d'etre validé.
+"Configurabilité" de l'application (definir si tout le monde peut ajouter du contenu, exporter la base, etc...)

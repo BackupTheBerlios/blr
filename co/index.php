@@ -189,11 +189,11 @@ echo '</div>';
 // Affichage des liens pour ajouter des éléments
 echo '<div class="ajout">';
 echo    '<a href="formulaire.php?action=ajoutLivre&amp;numDossier='.$dossier->numDossier.'">Ajouter un livre</a> | '.
-        '<a href="formulaire.php?action=ajoutLien&amp;numDossier='.$dossier->numDossier.'">Ajouter un lien</a> | '.
-        '<a href="formulaire.php?action=ajoutDossier&amp;numDossier='.$dossier->numDossier.'">Ajouter un dossier</a>';
+        '<a href="formulaire.php?action=ajoutLien&amp;numDossier='.$dossier->numDossier.'">Ajouter un lien</a>';
 
 // Lien pour passer et quitter le mode Administrateur
 if (isset($_SESSION['login'])) {
+    echo ' | <a href="formulaire.php?action=ajoutDossier&amp;numDossier='.$dossier->numDossier.'">Ajouter un dossier</a>';
     echo '<br /><a href="administration.php">Administration</a> | <a href="logout.php">Quitter le mode <strong>Administrateur</strong></a>';
 } else {
     echo '<br /><a href="administration.php">Passer en mode <strong>Administrateur</strong></a>';

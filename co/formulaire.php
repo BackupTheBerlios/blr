@@ -93,6 +93,10 @@ if ($_GET['action'] == 'ajoutLivre')
     ?>
     <form name="form1" id="form1" method="post" action="ajouter.php?objet=lien">
         <p>
+            Vous pouvez ajouter ce lien dans le dossier courant, ou proposez un sous-dossier qui sera plus pertinent.<br />
+            <input type="radio" name="dossier" value="courant" /> Dossier courant
+            ou <input type="radio" name="dossier" value="nouveau" /> sous-dossier :
+            <input type="texte" name="nouveauDossier" /><hr />
             Nom *<br />
             <input type="text" name="nom" size="60"/><br />
             Url<br />
@@ -109,19 +113,25 @@ if ($_GET['action'] == 'ajoutLivre')
     <?php    
 } elseif ($_GET['action'] == 'ajoutDossier')
 {
-    $dossier = new Dossier($_GET['numDossier']);
-    echo '<div class="arborescence">Ajout d\'un dossier dans <strong>'.$dossier->arborescence().'</strong></div>';
-    echo '<div class="dossier">';
-    ?>
-    <form name="form1" id="form1" method="post" action="ajouter.php?objet=dossier">
-        <p>
-            Nom *<br />
-            <input type="text" name="nom" size="60"/><br />
-            <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
-            <input type="submit" name="Submit" value="Ajouter le dossier" />
-        </p>
-    </form>
-    <?php    
+    if (isset($_SESSION['login'])) {
+        $dossier = new Dossier($_GET['numDossier']);
+        echo '<div class="arborescence">Ajout d\'un dossier dans <strong>'.$dossier->arborescence().'</strong></div>';
+        echo '<div class="dossier">';
+        ?>
+        <form name="form1" id="form1" method="post" action="ajouter.php?objet=dossier">
+            <p>
+                Nom *<br />
+                <input type="text" name="nom" size="60"/><br />
+                <input type="hidden" name="numDossier" value="<?php echo $_GET['numDossier'];?>" />
+                <input type="submit" name="Submit" value="Ajouter le dossier" />
+            </p>
+        </form>
+        <?php
+    } else {
+        echo '<div class="dossier">';
+        echo htmlentities('Attention, cette page est réservé aux administrateurs.');
+    }
+            
 }
 echo '</div>';
 bas();
