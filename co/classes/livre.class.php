@@ -50,6 +50,7 @@ class Livre extends Document{
     var $urlLivre;
     var $resume;
     var $valider;
+    var $dossierSouhaite;
     
     /*
     *   Variables concerant le fonctionnement de la classe    
@@ -69,7 +70,7 @@ class Livre extends Document{
                         " , `prix` , `pages` , `numEdition` , ".
                         "`lienCommercial` , `isbn` , `dateParution` , ".
                         "`collection` , `niveau` , `poids` , `format` ".
-                        ", `urlLivre` , `resume`, `numDossierParent`, `valider` ".
+                        ", `urlLivre` , `resume`, `numDossierParent`, `valider`, `dossierSouhaite` ".
                         "FROM `livre` ".
                         "WHERE numLivre = ".$numLivre;
                                        
@@ -103,6 +104,7 @@ class Livre extends Document{
             $this->resume           = $resultat['resume'];
             $this->numDossierParent = $resultat['numDossierParent'];
             $this->valider          = $resultat['valider'];
+            $this->dossierSouhaite  = $resultat['dossierSouhaite'];
         }
     }
     
@@ -186,6 +188,15 @@ class Livre extends Document{
         connexion();
         $resultat = mysql_query($sql);
         deconnexion();
+    }
+    
+    function dossierSouhaite ($dossierSouhaite) {
+        $sql =  "UPDATE livre ".
+                "SET dossierSouhaite = '".$dossierSouhaite."' ".
+                "WHERE numLivre = ".$this->numLivre;
+        connexion();
+        $resultat = mysql_query($sql);
+        deconnexion();                
     }
 }
 ?>

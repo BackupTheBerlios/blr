@@ -69,8 +69,17 @@ if ($_GET['objet'] == 'commentaire') {
     $livre->urlLivre        = $_POST['urlLivre'];
     $livre->resume          = $_POST['resume'];
     
-    $dossierParent = new Dossier($_POST['numDossier']);
-    $dossierParent->ajouterLivre($livre, isset($_SESSION['login']));
+    // Ajout d'un lien dans le dossier courant
+    if ($_POST['dossier'] == 'courant') {
+        $dossierParent = new Dossier($_POST['numDossier']);
+        $dossierParent->ajouterLivre($livre, isset($_SESSION['login']));
+    
+    // Ajout avec proposition de dossier
+    } elseif ($_POST['dossier'] == 'nouveau') {
+        $dossierParent = new Dossier($_POST['numDossier']);
+        $dossierParent->ajouterLivre($livre, 0);
+        $livre->dossierSouhaite($_POST['nouveauDossier']);
+    }
     
     header("Location: http://".$_SERVER['HTTP_HOST']
                      .dirname($_SERVER['PHP_SELF'])

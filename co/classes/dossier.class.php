@@ -228,7 +228,7 @@ class Dossier {
         return $arbo;
     }
     
-    function ajouterLivre($livre, $valider = false)
+    function ajouterLivre(&$livre, $valider = false)
     {
         if ($valider == true) {
             $sql =  "INSERT INTO livre (numDossierParent, langue, titre, sousTitre, auteur, ".
@@ -249,7 +249,9 @@ class Dossier {
         }
         connexion();
         $resultat = mysql_query($sql);
+        $id = mysql_insert_id();
         deconnexion();
+        $livre->numLivre = $id;
     }
     
     function ajouterLien(&$lien, $admin = false)

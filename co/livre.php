@@ -91,10 +91,17 @@ if (isset($_GET['numLivre'])) {
     
     // On affiche les liens pour la validation, si le livre n'a pas
     // encore été validé.
-    if ($livre->valider == 0) {
+    if ($livre->valider == 0 && empty($livre->dossierSouhaite)) {
         echo '<div class="validation">';
-        echo '<p><a href="moderation.php?objet=livre&numLivre='.$livre->numLivre.'"><img src="icones/valider.png" />Valider</a>';
-        echo ' | <a href="supprimer.php?objet=livre&numLivre='.$livre->numLivre.'"><img src="icones/supprimer.png" />Supprimer</a></p>';
+        echo '<p><a href="moderation.php?objet=livre&amp;numLivre='.$livre->numLivre.'"><img src="icones/valider.png" />Valider</a>';
+        echo ' | <a href="supprimer.php?objet=livre&amp;numLivre='.$livre->numLivre.'"><img src="icones/supprimer.png" />Supprimer</a></p>';
+        echo '</div>';
+        
+    } elseif ($livre->valider == 0 && !empty($livre->dossierSouhaite)) {
+        echo '<div class="validation">';
+        echo '<p><a href="moderation.php?objet=livre&amp;numLivre='.$livre->numLivre.'"><img src="icones/valider.png" />Valider dans le dossier courant</a>';
+        echo ' | <a href="moderation.php?objet=livreSousDossier&amp;numLivre='.$livre->numLivre.'"><img src="icones/valider.png" />Valider dans le sous-dossier <strong>'.$livre->dossierSouhaite.'</strong></a>';
+        echo ' | <a href="supprimer.php?objet=livre&amp;numLivre='.$livre->numLivre.'"><img src="icones/supprimer.png" />Supprimer</a></p>';
         echo '</div>';
     }
     

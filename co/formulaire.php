@@ -40,6 +40,12 @@ if ($_GET['action'] == 'ajoutLivre')
     echo '<div class="dossier">';
     ?>
     <form id="form1" method="post" action="ajouter.php?objet=livre">
+        <p class="nouveau">
+            Vous pouvez ajouter ce livre dans le dossier courant, ou proposez un sous-dossier qui sera plus pertinent.<br />
+            <input type="radio" name="dossier" value="courant" checked="checked" /> Dossier courant
+            ou <input type="radio" name="dossier" value="nouveau" /> sous-dossier :
+            <input type="text" name="nouveauDossier" />
+        </p>        
         <p>
             Titre *<br />
             <input type="text" name="titre" /><br />
