@@ -201,7 +201,7 @@ class Dossier {
             $numDossier = $doss['numDossier'];
             
             // On construit l'arborescence
-            $arbo = $separateur.'<a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$numDossier.'">'.$nom.'</a>'.$arbo;
+            $arbo = $separateur.'<a href="index.php?numDossier='.$numDossier.'">'.$nom.'</a>'.$arbo;
         } while ($nom != "..");
         return $arbo;
     }

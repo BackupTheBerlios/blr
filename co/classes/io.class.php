@@ -26,8 +26,8 @@ require_once('dossier.class.php');
 require_once('livre.class.php');
 
 function export($dossier) {
-    $export  = '<?xml version="1.0" encoding="iso-8859-15"?>';
-    $export .= '<blr>';
+    $export  = '<?xml version="1.0" encoding="iso-8859-15"?>'."\n";
+    $export .= '<blr>'."\n";
     
     $export .= expo($dossier);
     $export .= '</blr>';
@@ -45,11 +45,11 @@ function urlDossier($dossier) {
         if ($urlCourante->valider == 1)
         {         
             // Affichage du lien
-            $contenu .=    '<lien langue="'.$urlCourante->langue.'">'.
-                    '<url>'.$urlCourante->url.'</url>'.
-                    '<nom>'.$urlCourante->nom.'</nom>'.
-                    commentaireLien($urlCourante->numUrl).
-                    '</lien>';
+            $contenu .= '<lien langue="'.$urlCourante->langue.'"'.
+                        ' url="'.$urlCourante->url.'" '.
+                        'nom="'.$urlCourante->nom.'">'.
+                        commentaireLien($urlCourante->numUrl).
+                        '</lien>'."\n";
         }     
     }    
     return $contenu;
@@ -86,7 +86,7 @@ function livreDossier($dossier)
                         '<urlLivre>'.$livreCourant->urlLivre.'</urlLivre>'.
                         '<resume>'.$livreCourant->resume.'</resume>'.
                         commentaireLivre($livreCourant->numLivre).
-                        '</livre>';
+                        '</livre>'."\n";
                         
         }
     }
@@ -102,10 +102,10 @@ function dossierDossier ($dossier)
     while ($dossier->dossierSuivantExiste())
     {
         $dossierCourant = $dossier->sousDossierSuivant();
-        $export .= '<dossier nom="'.$dossierCourant->nom.'">';
+        $export .= '<dossier nom="'.$dossierCourant->nom.'">'."\n";
         $export .= urlDossier($dossierCourant->numDossier);
         $export .= livreDossier($dossierCourant->numDossier); 
-        $export .=  '</dossier>';    
+        $export .=  '</dossier>'."\n";    
     }
 }
 
@@ -120,7 +120,7 @@ function commentaireLien($numUrl)
         $listeCommentaire .= '<commentaire><auteur>'.$commentaireCourant->auteur.
                              '</auteur><note>'.$commentaireCourant->note.'</note>';
         $listeCommentaire .= '<texte>'.$commentaireCourant->commentaire.'</texte>';
-        $listeCommentaire .= '</commentaire>';
+        $listeCommentaire .= '</commentaire>'."\n";
     }
     return $listeCommentaire; 
 }

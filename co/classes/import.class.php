@@ -25,18 +25,70 @@ require_once('url.class.php');
 require_once('dossier.class.php');
 require_once('livre.class.php');
 
+header("content-type: text/plain; charset=ISO-8859-15");
 
-//  do stuff with $mydoc...
 if(!$dom = domxml_open_file(realpath("test.xml"))) {
   echo "Erreur lors de l'analyse du document\n";
   exit;
 }
-
 $root = $dom->document_element();
 $fils = $root->first_child();
 
-while($fils) {
-   echo $fils->node_name()."<br />";
-   $fils = $fils->next_sibling();
+/*function listeElementNoeudCourant ($noeud) {
+    while($noeud) {
+        //echo $noeud->node_name().$noeud->node_value()."\n";
+        echo ajout($noeud)."\n";
+        if ($noeud->has_child_nodes()) {
+            $fils = $noeud->first_child();
+            if ($fils->node_name() == 'dossier') {
+                echo "\t".listeElementNoeudCourant($fils);
+            } else {
+                while($fils) {
+                    echo "\t".$fils->node_name()."\n";
+                    $fils = $fils->next_sibling();
+                }
+            }
+        }
+        $noeud = $noeud->next_sibling();
+    }
+}*/
+function listeElementNoeudCourant ($noeud, $iter = 0) {
+    $iter++;
+    while($noeud) {
+        switch ($noeud->node_name()) {
+            case "dossier":
+                echo $iter."-"."dossier ".$noeud->get_attribute('nom')."\n";
+                $fils = $noeud->first_child();
+                echo listeElementNoeudCourant($fils, $iter);
+                break;
+            case "lien":
+                $langue = $noeud->get_attribute('langue');
+                $url    = $noeud->get_attribute('url');
+                $nom    = $noeud->get_attribute('nom');
+                echo $iter."-"."lien [".$langue.
+                    '] '.$url.' '.$nom."\n";
+                break;
+            case "livre":
+                echo "livre\n";
+                break;
+        }
+        //echo ajout($noeud)."\n";
+        /*if ($noeud->has_child_nodes()) {
+            $fils = $noeud->first_child();
+            if ($fils->node_name() == 'dossier') {
+                echo "\t".listeElementNoeudCourant($fils);
+            } else {
+                while($fils) {
+                    echo "\t".$fils->node_name()."\n";
+                    $fils = $fils->next_sibling();
+                }
+            }
+        }*/
+        $noeud = $noeud->next_sibling();
+    }
 }
+function ajout ($noeud) {
+    echo $noeud->node_name();    
+}
+echo listeElementNoeudCourant($fils);
 ?>
