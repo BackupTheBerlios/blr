@@ -31,7 +31,7 @@ include_once('classes/message.class.php');
 haut();
 // Un peu d'HTML
 ?>
-<a href="index.php"><h1>Books & Links Repository</h1></a>
+<h1><a href="index.php">Books &amp; Links Repository</a></h1>
 <?php
 // On récupère le numero du dossier et le crée l'objet correspondant
 if (isset($_GET['numDossier'])) {
@@ -57,7 +57,7 @@ echo '<div class="dossier">';
 $dossier->listeSousDossier();
 while ($dossier->dossierSuivantExiste()) {
     $dossierCourant = $dossier->sousDossierSuivant();
-    echo  '<img src="icones/dossier.png" /> <a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$dossierCourant->numDossier.'">'.$dossierCourant->nom.'</a><br />'."\n";
+    echo  '<img src="icones/dossier.png" alt="icone d\'un dossier"/> <a href="'.$_SERVER['PHP_SELF'].'?numDossier='.$dossierCourant->numDossier.'">'.$dossierCourant->nom.'</a><br />'."\n";
 }
 
 // Liste des urls
@@ -69,12 +69,12 @@ while ($dossier->urlSuivanteExiste()) {
     {
         // Gestion des options administrateurs
         if (isset($_SESSION['login'])) {
-            echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" /></a>';
+            echo '<a href="supprimer.php?objet=lien&numUrl='.$urlCourante->numUrl.'"><img src="icones/supprimer.png" alt="icone pour la suppression"/></a>';
         }
         
         // Affichage du lien
-        echo    '<img src="icones/lien.png" /> '.
-                '<img src="icones/pays/'.$urlCourante->langue.'.png" />'.
+        echo    '<img src="icones/lien.png" alt="icone d\'un lien"/> '.
+                '<img src="icones/pays/'.$urlCourante->langue.'.png" alt="icone d\'un drapeau"/>'.
                 ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> '.
                 '- '.$urlCourante->nombreCommentaire().' commentaire(s)';
         
@@ -93,8 +93,8 @@ while ($dossier->urlSuivanteExiste()) {
         }
         
         // Affichage du lien
-        echo    '<img src="icones/lien.png" /> '.
-                '<img src="icones/pays/'.$urlCourante->langue.'.png" />'.
+        echo    '<img src="icones/lien.png" alt="icone d\'un lien"/> '.
+                '<img src="icones/pays/'.$urlCourante->langue.'.png" alt="icone d\'un drapeau"/>'.
                 ' <a href="lien.php?numUrl='.$urlCourante->numUrl.'">'.htmlentities($urlCourante->nom).'</a> '.
                 '- '.$urlCourante->nombreCommentaire().' commentaire(s)';
         
@@ -121,8 +121,8 @@ while ($dossier->livreSuivantExiste()) {
         }
         
         // Affichage du livre
-        echo    '<img src="icones/livre.png" /> '.
-                '<img src="icones/pays/'.$livreCourant->langue.'.png" /> '.
+        echo    '<img src="icones/livre.png" alt="icone d\'un livre"/> '.
+                '<img src="icones/pays/'.$livreCourant->langue.'.png" alt="icone d\'un drapeau"/> '.
                 '<a href="livre.php?numLivre='.$livreCourant->numLivre.'">'.htmlentities($livreCourant->titre).'</a> '.
                 '- '.$livreCourant->nombreCommentaire().' commentaire(s) ';
         
@@ -157,9 +157,9 @@ echo '</div>';
 
 // Affichage de la scgnification des icones
 echo '<div class="legende">';
-echo '<img src="icones/lien.png" /> Liens | <img src="icones/livre.png" /> Livre';
+echo '<img src="icones/lien.png" alt="icone d\'un lien"/> Liens | <img src="icones/livre.png" /> Livre';
 if (isset($_SESSION['login'])) {
-    echo ' | <img src="icones/supprimer.png" /> Supprimer';
+    echo ' | <img src="icones/supprimer.png" alt="icone pour supprimer"/> Supprimer';
 }
 echo '</div>';
 

@@ -30,7 +30,7 @@ include_once('classes/divers.php');
 haut();
 // Un peu d'HTML
 ?>
-<a href="index.php"><h1>Books & Links Repository</h1></a>
+<h1><a href="index.php">Books &amp; Links Repository</a></h1>
 <?php
 echo '<div class="dossier">';
 if ($_GET['action'] == 'ajoutLivre')

@@ -1,23 +1,22 @@
 <?php
 include_once('db.php');
 
-function haut(){
-    ?>
-<!DOCTYPE html 
-    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+function haut()
+{
+    echo '<?xml version="1.0" encoding="iso-8859-15"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
   <head>
-    <title>Books & Links Repository</title>
+    <title>Books &amp; Links Repository</title>
     <link rel="stylesheet" type="text/css"  href="style.css" title="default" />
   </head>
-  <body>
-<?php
+  <body>';
 }
 
 function bas() {
     ?>
-    <div class="copyright"><a href="http://blr.berlios.de">Books & Links Repository</a> | &copy; 2004 Fabien SCHWOB | Script sous licence GNU GPL.</div>
+    <div class="copyright"><a href="http://blr.berlios.de">Books &amp; Links Repository</a> | &copy; 2004 Fabien SCHWOB | Script sous licence GNU GPL.</div>
       </body>
 </html>
 <?php

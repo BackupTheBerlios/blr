@@ -31,7 +31,7 @@ haut();
 
 // Un peu d'HTML
 ?>
-<a href="index.php"><h1>Books & Links Repository</h1></a>
+<h1><a href="index.php">Books &amp; Links Repository</a></h1>
 <?php
 // On récupère le numero du dossier et le crée l'objet correspondant
 if (isset($_GET['numUrl'])) {
